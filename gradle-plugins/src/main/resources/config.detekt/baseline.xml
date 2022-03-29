@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+    <ManuallySuppressedIssues>
+        <!-- Suppress warnings here -->
+    </ManuallySuppressedIssues>
+    <CurrentIssues>
+    </CurrentIssues>
+</SmellBaseline>

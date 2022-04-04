@@ -6,7 +6,7 @@ dependencyResolutionManagement {
 }
 
 pluginManagement {
-    includeBuild("../../gradle-plugins")
+    includeBuild("../../gradle-build-logic")
 }
 
 includeBuild("../../gradle-platform")

@@ -4,5 +4,3 @@ dependencyResolutionManagement {
         gradlePluginPortal()
     }
 }
-
-includeBuild("../gradle-platform")

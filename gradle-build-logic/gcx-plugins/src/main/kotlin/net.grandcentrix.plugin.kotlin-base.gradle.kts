@@ -18,7 +18,7 @@ java {
 }
 
 dependencies {
-    implementation(platform("net.grandcentrix.component:gradle-platform"))
+    // implementation(platform("net.grandcentrix.component:gradle-platform"))
 
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testImplementation("com.willowtreeapps.assertk:assertk-jvm")

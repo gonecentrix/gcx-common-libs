@@ -3,7 +3,13 @@
 ## List of Libraries
 
 1. Base (The Base for Spring Boot Apps)
-    - 
+
+## List of Plugins
+1. Detekt
+2. Kotlin Base
+3. Spring Boot
+4. Spring Boot Lib
+5. SpringDoc OpenAPI
 
 ## Add Library to your Project
 

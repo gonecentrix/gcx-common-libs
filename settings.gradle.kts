@@ -1,5 +1,5 @@
 rootProject.name = "gcx-common-libs"
 
 includeBuild("gradle-platform")
-includeBuild("gradle-plugins")
+includeBuild("gradle-build-logic")
 includeBuild("libs/base")

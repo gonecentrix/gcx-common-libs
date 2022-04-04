@@ -1,6 +1,6 @@
 object Project {
     const val Platform = "gradle-platform"
-    const val Plugins = "gradle-plugins"
+    const val Plugins = "gradle-build-logic"
     const val Base = "base"
 }
 

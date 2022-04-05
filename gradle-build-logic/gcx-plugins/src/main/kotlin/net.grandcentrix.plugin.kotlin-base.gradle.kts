@@ -1,8 +1,6 @@
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-group = "net.grandcentrix.plugin"
-
 plugins {
     id("java-library")
     id("org.jlleitschuh.gradle.ktlint")
@@ -18,7 +16,7 @@ java {
 }
 
 dependencies {
-    // implementation(platform("net.grandcentrix.component:gradle-platform"))
+    implementation(platform("net.grandcentrix.component:gradle-platform"))
 
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testImplementation("com.willowtreeapps.assertk:assertk-jvm")

@@ -8,7 +8,7 @@ val assertK = "0.25"
 val springMockK = "3.1.1"
 val springDoc = "1.6.6"
 val detekt = "1.19.0"
-val springBoot = "2.6.5"
+val springBoot = "2.6.6"
 val spring = "5.3.17"
 val jUnit = "5.8.2"
 val ktLint = "10.2.1"
@@ -56,8 +56,6 @@ dependencies.constraints {
     api("org.springdoc:springdoc-openapi-security:$springDoc")
     api("io.sentry:sentry:$sentry")
     api("io.github.microutils:kotlin-logging-jvm:$kotlinLogging")
-    api("com.willowtreeapps.assertk:assertk-jvm:$assertK")
-    api("com.ninja-squad:springmockk:$springMockK")
     api("ch.qos.logback.contrib:logback-json-classic:$logbackJson")
     api("ch.qos.logback.contrib:logback-jackson:$logbackJson")
 

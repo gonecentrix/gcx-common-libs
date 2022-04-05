@@ -1,17 +1,11 @@
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
 
-group = "net.grandcentrix.plugin"
-
 // TODO: Add a task that copies the content of this plugin resource folder into the root of the project that applies this plugin
 
 plugins {
     id("net.grandcentrix.plugin.kotlin-base")
     id("io.gitlab.arturbosch.detekt")
-}
-
-repositories {
-    mavenCentral()
 }
 
 apply(plugin = "io.gitlab.arturbosch.detekt")

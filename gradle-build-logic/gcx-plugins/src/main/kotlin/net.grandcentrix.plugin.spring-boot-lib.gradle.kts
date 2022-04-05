@@ -1,8 +1,6 @@
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-group = "net.grandcentrix.plugin"
-
 plugins {
     id("net.grandcentrix.plugin.kotlin-base")
     id("org.springframework.boot")

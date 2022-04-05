@@ -1,11 +1,8 @@
-group = "net.grandcentrix.plugin"
-
 plugins {
     id("net.grandcentrix.plugin.kotlin-base")
     id("org.springframework.boot")
     id("com.github.ben-manes.versions")
     id("org.owasp.dependencycheck")
-    kotlin("jvm")
     kotlin("plugin.spring")
     kotlin("plugin.jpa")
     kotlin("plugin.allopen")

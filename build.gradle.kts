@@ -5,7 +5,7 @@ object Project {
     const val TestContainers = "test-containers"
 }
 
-val allLibProjects = listOf(Project.Base, Project.Plugins)
+val allLibProjects = listOf(Project.Base, Project.TestContainers, Project.Plugins)
 
 tasks.register("build") {
     group = "build"

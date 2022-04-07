@@ -1,0 +1,14 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: 'true'
+        jdbc:
+          time_zone: UTC
+  datasource:
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}:5432/postgres

@@ -12,10 +12,10 @@ val springBoot = "2.6.6"
 val spring = "5.3.17"
 val jUnit = "5.8.2"
 val ktLint = "10.2.1"
-val postgresSql = "1.15.3"
 val springDependencyManagement = "1.0.11.RELEASE"
 val gradleVersions = "0.42.0"
 val owaspDependencyCheck = "7.0.0"
+val testContainers = "1.16.3"
 
 plugins {
     `java-platform`
@@ -59,7 +59,10 @@ dependencies.constraints {
     api("ch.qos.logback.contrib:logback-json-classic:$logbackJson")
     api("ch.qos.logback.contrib:logback-jackson:$logbackJson")
 
-    runtime("org.testcontainers:postgresql:$postgresSql")
+    api("org.testcontainers:testcontainers-bom:$testContainers")
+    api("org.testcontainers:junit-jupiter:$testContainers")
+    api("org.testcontainers:postgresql:$testContainers")
+    api("org.testcontainers:testcontainers:$testContainers")
 }
 
 publishing {

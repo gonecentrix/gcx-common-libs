@@ -2,6 +2,7 @@ object Project {
     const val Platform = "gradle-platform"
     const val Plugins = "gradle-build-logic"
     const val Base = "base"
+    const val TestContainers = "test-containers"
 }
 
 val allLibProjects = listOf(Project.Base, Project.Plugins)

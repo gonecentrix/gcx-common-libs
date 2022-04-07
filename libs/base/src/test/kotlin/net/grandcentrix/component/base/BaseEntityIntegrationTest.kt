@@ -4,6 +4,7 @@ import assertk.assertThat
 import assertk.assertions.containsExactlyInAnyOrder
 import assertk.assertions.isEqualTo
 import assertk.assertions.isInstanceOf
+import net.grandcentrix.component.testcontainers.BaseDatabaseIntegrationTest
 import org.hibernate.proxy.HibernateProxy
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired

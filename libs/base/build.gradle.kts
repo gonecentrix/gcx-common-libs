@@ -9,11 +9,6 @@ plugins {
 dependencies {
     implementation(platform("net.grandcentrix.component:gradle-platform"))
     implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
-
-    testImplementation(platform("org.testcontainers:testcontainers-bom"))
-    testImplementation("org.testcontainers:junit-jupiter")
-    testImplementation("org.testcontainers:postgresql")
-    testImplementation("org.testcontainers:testcontainers")
-
+    implementation("net.grandcentrix.component:test-containers")
     testRuntimeOnly("org.postgresql:postgresql")
 }

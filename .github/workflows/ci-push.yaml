@@ -1,0 +1,26 @@
+name: CI
+on:
+  workflow_dispatch:
+  push:
+    branches: [ ]
+
+jobs:
+  lint_tests:
+    name: Code-Linting, Unit-/Integration-Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Java JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Gradle Command - check
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: check --info
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: always()
+        with:
+          files: "build/test-results/**/*.xml"

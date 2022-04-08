@@ -1,6 +1,6 @@
 group = "net.grandcentrix.component"
 
-val kotlinVersion = project.properties["kotlinVersion"]
+val kotlinVersion = "1.6.10"
 val logbackJson = "0.1.5"
 val kotlinLogging = "2.1.21"
 val sentry = "5.6.3"
@@ -20,10 +20,6 @@ val testContainers = "1.16.3"
 plugins {
     `java-platform`
     `maven-publish`
-}
-
-buildscript {
-    extra.set("kotlin.version", project.properties["kotlinVersion"])
 }
 
 javaPlatform {

@@ -1,4 +1,4 @@
-group = "net.grandcentrix.plugin"
+group = "net.grandcentrix.component"
 
 plugins {
     id("net.grandcentrix.plugin.kotlin-base")

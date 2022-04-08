@@ -1,9 +1,7 @@
 plugins {
-    id("net.grandcentrix.plugin.kotlin-base")
-    id("org.springframework.boot")
+    id("net.grandcentrix.plugin.spring-boot-base")
     id("com.github.ben-manes.versions")
     id("org.owasp.dependencycheck")
-    kotlin("plugin.spring")
 }
 
 dependencies {

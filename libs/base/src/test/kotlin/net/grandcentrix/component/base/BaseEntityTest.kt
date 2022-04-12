@@ -11,7 +11,7 @@ internal class BaseEntityTest {
 
     class BaseEntityImpl(id: UUID = UUID.randomUUID()) : BaseEntity(id)
 
-    class BaseEntityImpl2(id: UUID = UUID.randomUUID()) : BaseEntity(id)
+    class BaseEntityImpl2(id: UUID = UUID.randomUUID()) : AuditBaseEntity(id)
 
     @Nested
     inner class Equals {

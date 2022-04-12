@@ -3,6 +3,7 @@ package net.grandcentrix.component.base
 import assertk.assertThat
 import assertk.assertions.containsExactlyInAnyOrder
 import assertk.assertions.isEqualTo
+import assertk.assertions.isGreaterThan
 import assertk.assertions.isInstanceOf
 import net.grandcentrix.component.testcontainers.BaseDatabaseIntegrationTest
 import org.hibernate.proxy.HibernateProxy
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.transaction.support.TransactionTemplate
+import java.time.Instant
+import java.util.UUID
 import javax.persistence.CascadeType
 import javax.persistence.Entity
 import javax.persistence.FetchType
@@ -24,8 +27,9 @@ class BaseEntityImpl : BaseEntity()
 
 @Entity
 class ComplexEntity(
-    @OneToMany(cascade = [CascadeType.PERSIST], fetch = FetchType.EAGER) var compositeList: MutableList<BaseEntityImpl>
-) : BaseEntity()
+    @OneToMany(cascade = [CascadeType.PERSIST], fetch = FetchType.EAGER) var compositeList: MutableList<BaseEntityImpl>,
+    id: UUID = UUID.randomUUID(),
+) : AuditBaseEntity(id)
 
 @Repository
 interface ComplexEntityRepository : BaseJpaRepository<ComplexEntity>
@@ -45,7 +49,7 @@ interface LazyFetchedParentRepository : BaseJpaRepository<LazyFetchedParent>
 class BaseEntityIntegrationTest {
 
     @BaseLibraryTest
-    internal open class BaseEntityTest(@Autowired val repo: ComplexEntityRepository) : BaseDatabaseIntegrationTest() {
+    internal class BaseEntityTest(@Autowired val repo: ComplexEntityRepository) : BaseDatabaseIntegrationTest() {
 
         @Test
         fun `when save is called the persist operation is cascaded`() {
@@ -62,11 +66,32 @@ class BaseEntityIntegrationTest {
                 composite2
             )
         }
+
+        @Test
+        fun `when save is called the created date and updated data are saved correctly`() {
+            val id = UUID.randomUUID()
+            val now = Instant.now()
+
+            repo.save(ComplexEntity(mutableListOf(), id))
+            var complexEntity = repo.findByIdOrNull(id)!!
+
+            assertThat(complexEntity.createdDate).isGreaterThan(now)
+            assertThat(complexEntity.updatedDate).isGreaterThan(now)
+
+            Thread.sleep(10)
+
+            complexEntity.compositeList.add(BaseEntityImpl())
+            repo.save(complexEntity)
+
+            complexEntity = repo.findByIdOrNull(id)!!
+
+            assertThat(complexEntity.updatedDate).isGreaterThan(complexEntity.createdDate)
+        }
     }
 
     @BaseLibraryTest
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
-    internal open class LazyFetchTest(
+    internal class LazyFetchTest(
         @Autowired val repo: LazyFetchedParentRepository,
         @Autowired val transactionTemplate: TransactionTemplate
     ) : BaseDatabaseIntegrationTest() {

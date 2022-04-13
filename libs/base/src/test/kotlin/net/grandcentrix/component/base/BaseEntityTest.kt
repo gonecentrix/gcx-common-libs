@@ -6,12 +6,13 @@ import assertk.assertions.isNotEqualTo
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import java.util.UUID
+import javax.persistence.Entity
 
 internal class BaseEntityTest {
 
     class BaseEntityImpl(id: UUID = UUID.randomUUID()) : BaseEntity(id)
 
-    class BaseEntityImpl2(id: UUID = UUID.randomUUID()) : AuditBaseEntity(id)
+    class AuditBaseEntityImpl(id: UUID = UUID.randomUUID()) : AuditBaseEntity(id)
 
     @Nested
     inner class Equals {
@@ -50,7 +51,7 @@ internal class BaseEntityTest {
         fun `Subclasses are not equal`() {
             val id = UUID.randomUUID()
             val entity1 = BaseEntityImpl(id)
-            val entity2 = BaseEntityImpl2(UUID.fromString(id.toString()))
+            val entity2 = AuditBaseEntityImpl(UUID.fromString(id.toString()))
 
             assertThat(entity1).isNotEqualTo(entity2)
         }
@@ -68,7 +69,7 @@ internal class BaseEntityTest {
         fun `Equal objects have same hashcode`() {
             val id = UUID.randomUUID()
             val entity1 = BaseEntityImpl(id)
-            val entity2 = BaseEntityImpl2(UUID.fromString(id.toString()))
+            val entity2 = AuditBaseEntityImpl(UUID.fromString(id.toString()))
 
             assertThat(entity1.hashCode()).isEqualTo(entity2.hashCode())
         }

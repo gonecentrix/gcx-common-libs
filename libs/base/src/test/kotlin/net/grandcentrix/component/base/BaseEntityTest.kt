@@ -6,7 +6,6 @@ import assertk.assertions.isNotEqualTo
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import java.util.UUID
-import javax.persistence.Entity
 
 internal class BaseEntityTest {
 

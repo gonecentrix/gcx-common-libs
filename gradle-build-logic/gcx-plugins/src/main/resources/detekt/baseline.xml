@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+    <ManuallySuppressedIssues>
+        <!-- Suppress warnings here -->
+        <ID>SpreadOperator:SpringApplication.kt$(*args)</ID>
+        <ID>UnnecessaryAbstractClass:BaseEntity.kt$BaseEntity</ID>
+    </ManuallySuppressedIssues>
+    <CurrentIssues>
+    </CurrentIssues>
+</SmellBaseline>

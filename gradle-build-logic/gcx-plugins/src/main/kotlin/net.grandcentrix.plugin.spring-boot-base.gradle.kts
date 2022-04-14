@@ -19,6 +19,7 @@ allOpen {
 
 dependencies {
     implementation(platform("net.grandcentrix.component:gradle-platform"))
+    implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 
     api(kotlin("stdlib-jdk8"))
     api(kotlin("noarg"))
@@ -26,8 +27,13 @@ dependencies {
 
     api("org.springframework.boot:spring-boot-starter-data-jpa")
 
+    testImplementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
         exclude(module = "mockito-core")
     }
+
+    annotationProcessor(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+    annotationProcessor("org.springframework.boot:spring-boot-autoconfigure-processor")
+
 }

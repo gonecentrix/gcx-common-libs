@@ -81,11 +81,20 @@ spring-boot-lib --> spring-boot-starter
         }
     }
     ```
-7. Add the desired dependencies:
+   > Unfortunately this has to be added for each repository. So if you have already added the ACM repo, you still need to add the common libs repository. 
+7. Add the desired dependencies and plugins:
     ```kotlin
-    implementation("net.grandcentrix.component:base")
+    plugins {
+        id("net.grandcentrix.plugin.spring-boot-app")
+        id("net.grandcentrix.plugin.detekt")
+        id("net.grandcentrix.plugin.kotlin-logger")
+    }
+   
+    dependencies {
+        implementation("net.grandcentrix.component:base")
+    }
     ```
 
 ## Publishing
 
-1. ./gradlew publish -Pversion=[version]
+`./gradlew publish -Pversion=[version]` 

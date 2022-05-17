@@ -1,8 +1,6 @@
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
 
-// TODO: Add a task that copies the content of this plugin resource folder into the root of the project that applies this plugin
-
 plugins {
     id("net.grandcentrix.plugin.kotlin-base")
     id("io.gitlab.arturbosch.detekt")
@@ -10,14 +8,49 @@ plugins {
 
 apply(plugin = "io.gitlab.arturbosch.detekt")
 
+val detektDependency: Configuration by configurations.creating {
+    isTransitive = false
+}
+dependencies {
+    implementation(platform("net.grandcentrix.component:gradle-platform"))
+    detektDependency("net.grandcentrix.component:artur-bosch-detekt")
+}
+
+tasks.register<Copy>("copyDetektConfigFiles") {
+    group = "build"
+    description = "Copies baseline.xml and detekt.xml logging files into the target resource folder"
+    val destination = layout.projectDirectory.dir("config/detekt")
+    from(zipTree(detektDependency.singleFile)) {
+        exclude("META-INF/**")
+    }
+    into(destination)
+    eachFile {
+        if (destination.file(name).asFile.exists()) {
+            exclude()
+        }
+    }
+}
+
 detekt {
     config = files("$rootDir/config/detekt/detekt.yml")
     buildUponDefaultConfig = true
     baseline = file("$rootDir/config/detekt/baseline.xml")
 }
 
-dependencies {
-    implementation(platform("net.grandcentrix.component:gradle-platform"))
+tasks.getByName("sourcesJar") {
+    dependsOn("copyDetektConfigFiles")
+}
+
+tasks.getByName("detekt") {
+    dependsOn("copyDetektConfigFiles")
+}
+
+tasks.build {
+    dependsOn("copyDetektConfigFiles")
+}
+
+tasks.processResources {
+    dependsOn("copyDetektConfigFiles")
 }
 
 val analysisDir = file(projectDir)

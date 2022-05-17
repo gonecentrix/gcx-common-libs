@@ -3,9 +3,11 @@ object Project {
     const val Plugins = "gradle-build-logic"
     const val Base = "base"
     const val TestContainers = "test-containers"
+    const val GcxLogging = "kotlin-logger"
+    const val Detekt = "artur-bosch-detekt"
 }
 
-val allLibProjects = listOf(Project.Base, Project.TestContainers, Project.Plugins)
+val allLibProjects = listOf(Project.Base, Project.TestContainers, Project.GcxLogging, Project.Detekt, Project.Plugins)
 
 tasks.register("build") {
     group = "build"

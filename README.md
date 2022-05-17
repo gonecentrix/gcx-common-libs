@@ -10,7 +10,7 @@
    - For all kotlin libraries
    - It sets Java version to 17
    - Includes JUnit, AssertK and Spring MockK
-2. Detekt (WIP)
+2. Detekt
    - Static Code Analysis
 3. Spring Boot Base
    - The base for all Spring libs
@@ -32,15 +32,22 @@
      - spring-boot-starter-validation
      - spring-boot-starter-actuator
      - jackson-module-kotlin")
-7. SpringDoc OpenAPI
+7. Kotlin Logger
+   - Automatically includes default logging config into your project after build
+   - Includes kotlin logging
+     - io.github.microutils:kotlin-logging-jvm
+     - ch.qos.logback.contrib:logback-json-classic
+     - ch.qos.logback.contrib:logback-jackson
+9. SpringDoc OpenAPI
    - Includes `springdoc-openapi` dependencies
-8. Publish
-   - Internal plugin to publish libs and plugins into this repository
+10. Publish
+    - Internal plugin to publish libs and plugins into this repository
 
 The Plugins are structured as follows:
 ```mermaid
 graph TD;
 kotlin-base --> detekt
+kotlin-base --> kotlin-logger
 kotlin-base --> spring-boot-base
 kotlin-base --> springdoc-openapi
 kotlin-base --> github-publish

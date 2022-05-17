@@ -1,0 +1,26 @@
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <springProfile name="dev">
+        <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
+        <!-- Database Logging -->
+        <logger name="org.hibernate.SQL" level="DEBUG"/> <!-- Logs all SQL statements -->
+        <logger name="org.springframework.security" level="DEBUG" /> <!-- Logs all Spring Security -->
+        <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="WARN"/> <!-- Logs all bindings for the prepared SQL Statements -->
+        <logger name="org.springframework.transaction.interceptor" level="WARN"/> <!-- Logs when a transaction starts/completes/rollbacks -->
+    </springProfile>
+
+    <springProfile name="test">
+        <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+    </springProfile>
+
+    <springProfile name="prod">
+        <include resource="log-json.xml"/>
+    </springProfile>
+
+    <root level="WARN">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>
+

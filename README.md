@@ -6,13 +6,50 @@
 2. Test Containers 
 
 ## List of Plugins
-1. Detekt
-2. Kotlin Base
-3. Spring Boot
+1. Kotlin Base 
+   - For all kotlin libraries
+   - It sets Java version to 17
+   - Includes JUnit, AssertK and Spring MockK
+2. Detekt (WIP)
+   - Static Code Analysis
+3. Spring Boot Base
+   - The base for all Spring libs
+   - Include JPA
+   - Spring Boot Starter Test
+     - Excluding `junit-vintage-engine` and `mockito-core`
 4. Spring Boot Lib
-5. SpringDoc OpenAPI
+   - Base for Spring Boot Libs
+   - Disables `tasks.bootJar`
+   - Enables `tasks.jar`
+5. Spring Boot Starter
+   - Base for all Spring Boot Starters
+   - Includes Auto Configuration dependencies
+6. Spring Boot App
+   - Base for your Spring application
+   - Includes 
+     - spring-boot-starter-security
+     - spring-boot-starter-web
+     - spring-boot-starter-validation
+     - spring-boot-starter-actuator
+     - jackson-module-kotlin")
+7. SpringDoc OpenAPI
+   - Includes `springdoc-openapi` dependencies
+8. Publish
+   - Internal plugin to publish libs and plugins into this repository
 
-## Add Library to your Project
+The Plugins are structured as follows:
+```mermaid
+graph TD;
+kotlin-base --> detekt
+kotlin-base --> spring-boot-base
+kotlin-base --> springdoc-openapi
+kotlin-base --> github-publish
+spring-boot-base --> spring-boot-app
+spring-boot-base --> spring-boot-lib
+spring-boot-lib --> spring-boot-starter
+```
+
+## How to add to your project?
 
 1. Go to https://github.com/settings/tokens/new
 2. Create a Github Token with `read:packages` permission
@@ -43,4 +80,4 @@
 
 ## Publishing
 
-1. gradle publish -Pversion=[version]
+1. ./gradlew publish -Pversion=[version]

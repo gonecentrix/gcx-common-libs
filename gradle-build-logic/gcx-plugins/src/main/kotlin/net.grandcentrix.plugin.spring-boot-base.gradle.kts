@@ -34,6 +34,4 @@ dependencies {
     }
 
     annotationProcessor(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
-    annotationProcessor("org.springframework.boot:spring-boot-autoconfigure-processor")
-
 }

@@ -6,6 +6,20 @@
 2. Test Containers 
 
 ## List of Plugins
+
+The Plugins are structured as follows:
+```mermaid
+graph TD;
+kotlin-base --> detekt
+kotlin-base --> kotlin-logger
+kotlin-base --> spring-boot-base
+kotlin-base --> springdoc-openapi
+kotlin-base --> github-publish
+spring-boot-base --> spring-boot-app
+spring-boot-base --> spring-boot-lib
+spring-boot-lib --> spring-boot-starter
+```
+
 1. Kotlin Base 
    - For all kotlin libraries
    - It sets Java version to 17
@@ -42,19 +56,6 @@
    - Includes `springdoc-openapi` dependencies
 10. Publish
     - Internal plugin to publish libs and plugins into this repository
-
-The Plugins are structured as follows:
-```mermaid
-graph TD;
-kotlin-base --> detekt
-kotlin-base --> kotlin-logger
-kotlin-base --> spring-boot-base
-kotlin-base --> springdoc-openapi
-kotlin-base --> github-publish
-spring-boot-base --> spring-boot-app
-spring-boot-base --> spring-boot-lib
-spring-boot-lib --> spring-boot-starter
-```
 
 ## How to add to your project?
 

@@ -13,7 +13,7 @@ val detektDependency: Configuration by configurations.creating {
 }
 dependencies {
     implementation(platform("net.grandcentrix.component:gradle-platform"))
-    detektDependency("net.grandcentrix.component:artur-bosch-detekt")
+    detektDependency("net.grandcentrix.component:artur-bosch-detekt:+")
 }
 
 tasks.register<Copy>("copyDetektConfigFiles") {

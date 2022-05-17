@@ -27,6 +27,11 @@ javaPlatform {
 }
 
 dependencies.constraints {
+    api("$group:base")
+    api("$group:test-containers")
+    api("$group:kotlin-logger")
+    api("$group:artur-bosch-detekt")
+
     api("org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:$kotlinVersion")
     api("org.jetbrains.kotlin.plugin.spring:org.jetbrains.kotlin.plugin.spring.gradle.plugin:$kotlinVersion")
     api("org.jetbrains.kotlin.plugin.jpa:org.jetbrains.kotlin.plugin.jpa.gradle.plugin:$kotlinVersion")

@@ -1,4 +1,4 @@
-package net.grandcentrix.component.base
+package net.grandcentrix.component.base.entity
 
 import org.springframework.data.repository.NoRepositoryBean
 import org.springframework.data.repository.PagingAndSortingRepository

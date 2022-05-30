@@ -1,4 +1,4 @@
-package net.grandcentrix.component.base.autoconfigure
+package net.grandcentrix.component.base.entity.autoconfigure
 
 import org.springframework.boot.autoconfigure.AutoConfigureAfter
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration

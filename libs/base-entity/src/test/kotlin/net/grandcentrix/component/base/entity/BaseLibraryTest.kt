@@ -1,4 +1,4 @@
-package net.grandcentrix.component.base
+package net.grandcentrix.component.base.entity
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.autoconfigure.domain.EntityScan

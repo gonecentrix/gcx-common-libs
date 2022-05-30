@@ -1,4 +1,4 @@
-package net.grandcentrix.component.base
+package net.grandcentrix.component.base.entity
 
 import org.hibernate.Hibernate
 import java.util.UUID

@@ -27,7 +27,7 @@ javaPlatform {
 }
 
 dependencies.constraints {
-    api("$group:base")
+    api("$group:base-entity")
     api("$group:test-containers")
     api("$group:kotlin-logger")
     api("$group:artur-bosch-detekt")

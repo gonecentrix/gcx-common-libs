@@ -1,12 +1,56 @@
 # GCX Shared Code Monorepo
 
-## List of Libraries
+## Table of Contents
+- [Libraries](#libraries)
+- [Gradle Plugins](#gradle-plugins)
+  - [Plugins Description](#plugins-description)
+- [How to add to your project?](#how-to-add-to-your-project)
+- [Contributing to the common libs](#contributing-to-the-common-libs)
+- [Publishing](#publishing)
+- [Projects adopting the GCX Common Libs](#projects-adopting-the-gcx-common-libs)
 
-1. Base (The Base for Spring Boot Apps)
-2. Test Containers 
+## Libraries
+The following libraries are currently present and can be added as a dependency into your project:
 
-## List of Plugins
+- Base Entity
+   - Includes:
+     - `BaseEntity`
+     - `AuditBaseEntity`
+     - `BaseJpaRepository`
+     - `BasePagingAndSortingRepository`
+     - `Converter` 
+       - Non-nullable version of the [Spring Converter](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/core/convert/converter/Converter.html#convert-S-)
+   - Add it to your `build.gradle.kts` inside dependencies:
+     - `implementation("net.grandcentrix.component:base-entity")`
+- Test Containers
+  - One test container for all of your integration tests
+  - Includes: 
+    - `BaseIntegrationTest`
+    - `BaseDatabaseIntegrationTest`
+    - `BaseDataJpaIntegrationTest`
+    - `BaseSpringBootIntegrationTest`
+  - Add it to your `build.gradle.kts` inside dependencies:
+    - `testImplementation("net.grandcentrix.component:test-containers")`
+- Artur Bosch Detekt
+   - Contains the plugin's resource files
+   - Add it to your `build.gradle.kts` inside plugins:
+     - `id("net.grandcentrix.plugin.detekt")`
+- Kotlin Logger
+   - Contains the plugins resource files
+   - Add it to your `build.gradle.kts` inside plugins:
+       - `id("net.grandcentrix.plugin.kotlin-logger")`
 
+## Gradle Plugins
+These plugins were created to facilitate the creation of new libraries and also to be used within your projects.
+For example, for a new Spring Boot App, you could add the following plugins:
+```
+plugins {
+    id("net.grandcentrix.plugin.spring-boot-app")
+    id("net.grandcentrix.plugin.detekt")
+    id("net.grandcentrix.plugin.kotlin-logger")
+}
+```
+Those plugins will include all the minimal common dependencies and configurations for a GCX Spring Boot based app. 
 The Plugins are structured as follows:
 ```mermaid
 graph TD;
@@ -19,48 +63,53 @@ spring-boot-base --> spring-boot-app
 spring-boot-base --> spring-boot-lib
 spring-boot-lib --> spring-boot-starter
 ```
+That means that if you include the `spring-boot-app` plugin, you are also including the `spring-boot-base` and `kotlin-base` plugins as transitive dependencies.
 
-1. Kotlin Base 
+> Make sure to include one of these plugins as a base when developing a new library
+
+### Plugins Description
+- Kotlin Base
    - For all kotlin libraries
    - It sets Java version to 17
    - Includes JUnit, AssertK and Spring MockK
-2. Detekt
+- Detekt
    - Static Code Analysis
-3. Spring Boot Base
+   - Adds default configurations into your project
+- Spring Boot Base
    - The base for all Spring libs
    - Include JPA
    - Spring Boot Starter Test
      - Excluding `junit-vintage-engine` and `mockito-core`
-4. Spring Boot Lib
+- Spring Boot Lib
    - Base for Spring Boot Libs
    - Disables `tasks.bootJar`
    - Enables `tasks.jar`
-5. Spring Boot Starter
+- Spring Boot Starter
    - Base for all Spring Boot Starters
    - Includes Auto Configuration dependencies
-6. Spring Boot App
+- Spring Boot App
    - Base for your Spring application
    - Includes 
      - spring-boot-starter-security
      - spring-boot-starter-web
      - spring-boot-starter-validation
      - spring-boot-starter-actuator
-     - jackson-module-kotlin")
-7. Kotlin Logger
+     - jackson-module-kotlin
+- Kotlin Logger
    - Automatically includes default logging config into your project after build
    - Includes kotlin logging
      - io.github.microutils:kotlin-logging-jvm
      - ch.qos.logback.contrib:logback-json-classic
      - ch.qos.logback.contrib:logback-jackson
-9. SpringDoc OpenAPI
+- SpringDoc OpenAPI
    - Includes `springdoc-openapi` dependencies
-10. Publish
+- Publish
     - Internal plugin to publish libs and plugins into this repository
 
-## How to add to your project?
+## How to add to your project
 
 1. Go to https://github.com/settings/tokens/new
-2. Create a Github Token with `read:packages` permission
+2. Create a Github Token with `read:packages` permission (and `write:packages` if you want to contribute to publish new versions)
 3. Copy the token
 4. Create or edit the file `~/.gradle/gradle.properties` in your machine. You need at least the following two lines:
     ```kotlin
@@ -91,10 +140,24 @@ spring-boot-lib --> spring-boot-starter
     }
    
     dependencies {
-        implementation("net.grandcentrix.component:base")
+        implementation("net.grandcentrix.component:base-entity")
     }
     ```
 
+## Contributing to the common libs
+If you would like to contribute:
+
+1. Create a pull-request
+2. Collect and address feedback from other colleagues (try `#cc-si` slack channel)
+3. Merge it
+4. Publish it
+5. Communicate on `#cc-si` slack channel about your new additions
+
 ## Publishing
 
+> Make sure your token has `write:packages` and access to GCX-SI org
+
 `./gradlew publish -Pversion=[version]` 
+
+## Projects adopting the GCX Common Libs
+1. [B.E.G. LUXoNET](https://github.com/GCX-SI/beg-luxonet-mono/tree/main/backend)

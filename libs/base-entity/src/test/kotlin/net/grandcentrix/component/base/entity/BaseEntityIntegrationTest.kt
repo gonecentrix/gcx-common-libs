@@ -1,4 +1,4 @@
-package net.grandcentrix.component.base
+package net.grandcentrix.component.base.entity
 
 import assertk.assertThat
 import assertk.assertions.containsExactlyInAnyOrder

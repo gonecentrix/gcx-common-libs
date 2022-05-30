@@ -1,4 +1,4 @@
-package net.grandcentrix.component.base.autoconfigure
+package net.grandcentrix.component.base.entity.autoconfigure
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

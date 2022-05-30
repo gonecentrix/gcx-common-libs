@@ -1,13 +1,15 @@
 object Project {
     const val Platform = "gradle-platform"
     const val Plugins = "gradle-build-logic"
-    const val Base = "base"
+    const val BaseEntity = "base-entity"
     const val TestContainers = "test-containers"
     const val GcxLogging = "kotlin-logger"
     const val Detekt = "artur-bosch-detekt"
 }
 
-val allLibProjects = listOf(Project.Base, Project.TestContainers, Project.GcxLogging, Project.Detekt, Project.Plugins)
+val allLibProjects = listOf(Project.BaseEntity, Project.TestContainers, Project.GcxLogging, Project.Detekt,
+    Project.Plugins
+)
 
 tasks.register("build") {
     group = "build"

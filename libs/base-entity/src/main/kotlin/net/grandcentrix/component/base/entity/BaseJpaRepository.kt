@@ -1,4 +1,4 @@
-package net.grandcentrix.component.base
+package net.grandcentrix.component.base.entity
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.repository.NoRepositoryBean

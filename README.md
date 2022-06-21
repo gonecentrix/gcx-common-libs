@@ -108,7 +108,7 @@ That means that if you include the `spring-boot-app` plugin, you are also includ
 
 ## How to add to your project
 
-1. Go to https://github.com/settings/tokens/new
+1. Go to [https://github.com/settings/tokens/new](https://github.com/settings/tokens/new?description=gcx-common-libs&scopes=read:packages)
 2. Create a Github Token with `read:packages` permission (and `write:packages` if you want to contribute to publish new versions)
 3. Copy the token
 4. Create or edit the file `~/.gradle/gradle.properties` in your machine. You need at least the following two lines:

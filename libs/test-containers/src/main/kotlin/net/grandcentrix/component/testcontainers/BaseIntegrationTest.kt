@@ -21,11 +21,9 @@ abstract class BaseDatabaseIntegrationTest : BaseIntegrationTest() {
 
         private const val springDataSourceProperty = "spring.dataSource"
 
-        var postgreVersion = "12-alpine"
+        private const val postgreVersion = "12-alpine"
 
-        var postgreSqlContainer = PostgreSQLContainer<Nothing>("${PostgreSQLContainer.IMAGE}:${getVersion()}").apply {
-            withDatabaseName("middleware")
-            withExposedPorts(5432) // This should also be configurable
+        var postgreSqlContainer = PostgreSQLContainer<Nothing>("${PostgreSQLContainer.IMAGE}:$postgreVersion").apply {
             start()
         }
 

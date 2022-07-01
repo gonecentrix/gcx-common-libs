@@ -7,17 +7,15 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.containers.PostgreSQLContainer
-import org.testcontainers.junit.jupiter.Container
-import org.testcontainers.junit.jupiter.Testcontainers
 
 @ActiveProfiles("test")
 abstract class BaseIntegrationTest
 
-@Testcontainers
 abstract class BaseDatabaseIntegrationTest : BaseIntegrationTest() {
 
     /**
      * Start a single [PostgreSQLContainer] that will be re-used between tests.
+     * For more information on singleton containers, see https://www.testcontainers.org/test_framework_integration/manual_lifecycle_control/.
      */
     companion object {
 
@@ -25,8 +23,9 @@ abstract class BaseDatabaseIntegrationTest : BaseIntegrationTest() {
 
         private const val postgreVersion = "12-alpine"
 
-        @Container
-        var postgreSqlContainer: PostgreSQLContainer<*> = NonStoppingPostgresSqlContainer(postgreVersion)
+        var postgreSqlContainer = PostgreSQLContainer<Nothing>("${PostgreSQLContainer.IMAGE}:$postgreVersion").apply {
+            start()
+        }
 
         @JvmStatic
         @DynamicPropertySource
@@ -45,11 +44,3 @@ abstract class BaseDataJpaIntegrationTest : BaseDatabaseIntegrationTest()
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 abstract class BaseSpringBootIntegrationTest : BaseDatabaseIntegrationTest()
-
-class NonStoppingPostgresSqlContainer(dockerTag: String) :
-    PostgreSQLContainer<NonStoppingPostgresSqlContainer>("$IMAGE:$dockerTag") {
-
-    override fun stop() {
-        // do nothing (i.e. do NOT stop container between tests)
-    }
-}

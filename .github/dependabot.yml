@@ -1,0 +1,17 @@
+version: 2
+
+updates:
+  - package-ecosystem: "gradle"
+    directory: "/"
+    target-branch: "main"
+    schedule:
+      interval: "daily"
+      time: "01:00"
+      timezone: "Europe/Berlin"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      day: "sunday"
+      time: "01:00"
+      timezone: "Europe/Berlin"

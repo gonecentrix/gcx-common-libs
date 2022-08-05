@@ -1,5 +1,6 @@
-package net.grandcentrix.component.base.entity
+package net.grandcentrix.component.base.repository
 
+import net.grandcentrix.component.base.entity.BaseEntity
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.repository.NoRepositoryBean
 import java.util.UUID

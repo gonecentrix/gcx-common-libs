@@ -5,46 +5,21 @@ import assertk.assertions.containsExactlyInAnyOrder
 import assertk.assertions.isEqualTo
 import assertk.assertions.isGreaterThan
 import assertk.assertions.isInstanceOf
+import net.grandcentrix.component.base.entity.example.BaseEntityImpl
+import net.grandcentrix.component.base.entity.example.ComplexEntity
+import net.grandcentrix.component.base.entity.example.ComplexEntityRepository
+import net.grandcentrix.component.base.entity.example.LazyFetchedParent
+import net.grandcentrix.component.base.entity.example.LazyFetchedParentRepository
 import net.grandcentrix.component.testcontainers.BaseDatabaseIntegrationTest
 import org.hibernate.proxy.HibernateProxy
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.transaction.support.TransactionTemplate
 import java.time.Instant
 import java.util.UUID
-import javax.persistence.CascadeType
-import javax.persistence.Entity
-import javax.persistence.FetchType
-import javax.persistence.ManyToOne
-import javax.persistence.OneToMany
-
-@Entity
-class BaseEntityImpl : BaseEntity()
-
-@Entity
-class ComplexEntity(
-    @OneToMany(cascade = [CascadeType.PERSIST], fetch = FetchType.EAGER) var compositeList: MutableList<BaseEntityImpl>,
-    id: UUID = UUID.randomUUID(),
-) : AuditBaseEntity(id)
-
-@Repository
-interface ComplexEntityRepository : BaseJpaRepository<ComplexEntity>
-
-@Entity
-class LazyFetchedParent(
-    @ManyToOne(
-        optional = false,
-        fetch = FetchType.LAZY,
-        cascade = [CascadeType.PERSIST]
-    ) var lazyFetchedEntity: BaseEntityImpl
-) : BaseEntity()
-
-@Repository
-interface LazyFetchedParentRepository : BaseJpaRepository<LazyFetchedParent>
 
 class BaseEntityIntegrationTest {
 

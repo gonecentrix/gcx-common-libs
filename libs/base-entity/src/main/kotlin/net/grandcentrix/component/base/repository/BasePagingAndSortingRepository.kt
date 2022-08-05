@@ -1,5 +1,6 @@
-package net.grandcentrix.component.base.entity
+package net.grandcentrix.component.base.repository
 
+import net.grandcentrix.component.base.entity.BaseEntity
 import org.springframework.data.repository.NoRepositoryBean
 import org.springframework.data.repository.PagingAndSortingRepository
 import java.util.UUID

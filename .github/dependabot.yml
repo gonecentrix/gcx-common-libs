@@ -1,8 +1,8 @@
-version: 2
+version: 3
 
 updates:
   - package-ecosystem: "gradle"
-    directory: "/"
+    directory: "gradle-platform/"
     target-branch: "main"
     schedule:
       interval: "daily"

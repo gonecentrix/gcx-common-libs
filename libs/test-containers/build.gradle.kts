@@ -12,8 +12,8 @@ dependencies {
 
     implementation(platform("org.testcontainers:testcontainers-bom"))
     implementation("org.testcontainers:junit-jupiter")
-    implementation("org.testcontainers:postgresql")
-    implementation("org.testcontainers:testcontainers")
+    api("org.testcontainers:postgresql")
+    api("org.testcontainers:testcontainers")
 
     implementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")

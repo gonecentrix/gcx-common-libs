@@ -22,13 +22,14 @@ The following libraries are currently present and can be added as a dependency i
        - Non-nullable version of the [Spring Converter](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/core/convert/converter/Converter.html#convert-S-)
    - Add it to your `build.gradle.kts` inside dependencies:
      - `implementation("net.grandcentrix.component:base-entity")`
-- Test Containers
-  - One test container for all of your integration tests
+- Test Containers. For more details check its [README](libs/test-containers/README.md) file
+  - Provides a PostgreSQL test container as a singleton to be used in all of your integration tests
   - Includes: 
     - `BaseIntegrationTest`
     - `BaseDatabaseIntegrationTest`
     - `BaseDataJpaIntegrationTest`
     - `BaseSpringBootIntegrationTest`
+    - `BaseContainerImageSubstitute`
   - Add it to your `build.gradle.kts` inside dependencies:
     - `testImplementation("net.grandcentrix.component:test-containers")`
 - Artur Bosch Detekt

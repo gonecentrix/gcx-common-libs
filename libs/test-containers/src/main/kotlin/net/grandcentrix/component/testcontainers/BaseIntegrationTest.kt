@@ -11,6 +11,17 @@ import org.testcontainers.containers.PostgreSQLContainer
 @ActiveProfiles("test")
 abstract class BaseIntegrationTest
 
+/**
+ * Extend to use a single test container postgres database for your integration tests
+ * The PostgreSQL version used here is `12-alpine`
+ * If you would like to change this version you need to extend a BaseContainerImageSubstitute
+ * and add a `testcontainers.properties` file referencing your image name substitute:
+ *
+ * net.grandcentrix.component.base.entity.ContainerImageSubstituteExample
+ *
+ * @see net.grandcentrix.component.base.entity.ContainerImageSubstituteExample
+ * @see net.grandcentrix.component.testcontainers.BaseContainerImageSubstitute
+ */
 abstract class BaseDatabaseIntegrationTest : BaseIntegrationTest() {
 
     /**

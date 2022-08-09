@@ -8,7 +8,7 @@ BaseIntegrationTest <|-- BaseDatabaseIntegrationTest
 BaseDatabaseIntegrationTest <|-- BaseDataJpaIntegrationTest
 BaseDatabaseIntegrationTest <|-- BaseSpringBootIntegrationTest
 BaseContainerImageSubstitute <|-- ContainerImageSubstituteExample
-BaseContainerImageSubstitute <|-- [YourProjectContainerImageSubstitute]
+BaseContainerImageSubstitute <|-- `[YourProjectContainerImageSubstitute]`
 ```
 - `BaseContainerImageSubstitute`
   - Can be used to replace the image name and version of the PostgreSQL container used in all integration tests

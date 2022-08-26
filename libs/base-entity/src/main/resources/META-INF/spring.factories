@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  net.grandcentrix.component.base.entity.autoconfigure.BaseAutoConfiguration

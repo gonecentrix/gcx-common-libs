@@ -1,21 +1,21 @@
 group = "net.grandcentrix.component"
 
-val kotlinVersion = project.properties["kotlinVersion"]
-val ktLint = project.properties["ktLintVersion"]
-val springDependencyManagement = project.properties["springDependencyManagementVersion"]
-val gradleVersions = project.properties["gradleVersionsVersion"]
-val owaspDependencyCheck = project.properties["owaspDependencyCheckVersion"]
-val springBoot = project.properties["springBootVersion"]
-val logbackJson = project.properties["logbackJsonVersion"]
-val kotlinLogging = project.properties["kotlinLoggingVersion"]
-val sentry = project.properties["sentryVersion"]
-val assertK = project.properties["assertKVersion"]
-val springMockK = project.properties["springMockKVersion"]
-val springDoc = project.properties["springDocVersion"]
-val detekt = project.properties["detektVersion"]
-val spring = project.properties["springVersion"]
-val jUnit = project.properties["jUnitVersion"]
-val testContainers = project.properties["testContainersVersion"]
+val kotlinVersion = "1.6.10"
+val ktLint = "10.2.1"
+val springDependencyManagement = "1.0.11.RELEASE"
+val gradleVersions = "0.42.0"
+val owaspDependencyCheck = "7.0.0"
+val springBoot = "2.7.2"
+val logbackJson = "0.1.5"
+val kotlinLogging = "2.1.21"
+val sentry = "6.3.0"
+val assertK = "0.25"
+val springMockK = "3.1.1"
+val springDoc = "1.6.9"
+val detekt = "1.19.0"
+val spring = "5.3.21"
+val jUnit = "5.9.0"
+val testContainers = "1.17.3"
 
 plugins {
     `java-platform`

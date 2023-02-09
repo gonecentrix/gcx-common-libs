@@ -6,5 +6,5 @@ import org.springframework.boot.context.properties.ConstructorBinding
 @ConfigurationProperties("spring.datasource")
 @ConstructorBinding
 data class DataSourceProperties(
-    val lockTimeoutMs: Long,
+    val lockTimeoutMs: Long = 3_000,
 )

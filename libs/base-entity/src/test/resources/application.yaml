@@ -12,4 +12,3 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: postgres
     url: jdbc:postgresql://${DATABASE_HOST:localhost}:5432/postgres
-    lock-timeout-ms: 3000

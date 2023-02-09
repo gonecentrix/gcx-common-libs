@@ -1,3 +1,0 @@
-spring:
-  datasource:
-    lock-timeout-ms: 3000

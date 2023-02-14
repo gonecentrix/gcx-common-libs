@@ -1,8 +1,8 @@
 package net.grandcentrix.component.base.repository
 
+import jakarta.persistence.EntityManager
+import jakarta.persistence.Query
 import org.springframework.stereotype.Component
-import javax.persistence.EntityManager
-import javax.persistence.Query
 
 /**
  * This class provides a function to programmatically set a lock timeout for PostgreSQL databases.

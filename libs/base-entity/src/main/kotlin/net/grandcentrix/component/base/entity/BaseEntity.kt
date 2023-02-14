@@ -1,10 +1,10 @@
 package net.grandcentrix.component.base.entity
 
+import jakarta.persistence.Id
+import jakarta.persistence.MappedSuperclass
+import jakarta.persistence.Version
 import org.hibernate.Hibernate
 import java.util.UUID
-import javax.persistence.Id
-import javax.persistence.MappedSuperclass
-import javax.persistence.Version
 
 /**
  * This class represents a base entity. All other created entities in the project should inherit

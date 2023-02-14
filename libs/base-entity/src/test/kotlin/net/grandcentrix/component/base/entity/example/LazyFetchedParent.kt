@@ -1,10 +1,10 @@
 package net.grandcentrix.component.base.entity.example
 
+import jakarta.persistence.CascadeType
+import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
+import jakarta.persistence.ManyToOne
 import net.grandcentrix.component.base.entity.BaseEntity
-import javax.persistence.CascadeType
-import javax.persistence.Entity
-import javax.persistence.FetchType
-import javax.persistence.ManyToOne
 
 @Entity
 class LazyFetchedParent(

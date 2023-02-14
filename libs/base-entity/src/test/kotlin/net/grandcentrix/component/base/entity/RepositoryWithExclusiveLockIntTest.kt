@@ -10,6 +10,7 @@ import com.ninjasquad.springmockk.SpykBean
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
+import jakarta.persistence.PessimisticLockException
 import net.grandcentrix.component.base.entity.example.ComplexEntity
 import net.grandcentrix.component.base.entity.example.ComplexEntityRepository
 import net.grandcentrix.component.base.repository.CustomRepositoryContext
@@ -21,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional
 import org.springframework.transaction.support.TransactionTemplate
 import java.lang.Thread.sleep
 import java.util.UUID
-import javax.persistence.PessimisticLockException
 import kotlin.concurrent.thread
 
 @BaseLibraryTest

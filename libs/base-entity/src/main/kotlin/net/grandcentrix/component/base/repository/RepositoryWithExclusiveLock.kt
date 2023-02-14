@@ -1,11 +1,11 @@
 package net.grandcentrix.component.base.repository
 
+import jakarta.persistence.EntityManager
+import jakarta.persistence.LockModeType
 import net.grandcentrix.component.base.config.DataSourceProperties
 import net.grandcentrix.component.base.entity.BaseEntity
 import org.springframework.stereotype.Component
 import java.util.UUID
-import javax.persistence.EntityManager
-import javax.persistence.LockModeType
 import kotlin.reflect.KClass
 
 /**

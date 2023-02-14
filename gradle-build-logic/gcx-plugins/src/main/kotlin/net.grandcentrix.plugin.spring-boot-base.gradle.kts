@@ -14,7 +14,16 @@ allOpen {
      entities always eager and ignore FetchType.LAZY silently. For more information see this bug ticket:
      https://youtrack.jetbrains.com/issue/KT-28525
      */
-    annotations("javax.persistence.Entity", "javax.persistence.MappedSuperclass", "javax.persistence.Embeddable")
+    annotations("jakarta.persistence.Entity", "jakarta.persistence.MappedSuperclass", "jakarta.persistence.Embeddable")
+}
+
+// 2023-01-19:
+// the jpa plugin doesn't work with NoArgs constructors on `jakarta.*` paths yet,
+// so we have to set it manually
+noArg {
+    annotation("jakarta.persistence.Entity")
+    annotation("jakarta.persistence.MappedSuperclass")
+    annotation("jakarta.persistence.Embeddable")
 }
 
 dependencies {

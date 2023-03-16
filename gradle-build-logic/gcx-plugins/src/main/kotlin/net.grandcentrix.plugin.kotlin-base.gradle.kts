@@ -32,7 +32,7 @@ tasks.withType<Test> {
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = sourceCompatibility
+        jvmTarget = JavaVersion.VERSION_17.majorVersion
     }
 
     // A wrongly formatted file cannot be build

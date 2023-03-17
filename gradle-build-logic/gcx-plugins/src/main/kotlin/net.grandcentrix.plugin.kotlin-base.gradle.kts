@@ -20,7 +20,6 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testImplementation("com.willowtreeapps.assertk:assertk-jvm")
-    testImplementation("com.ninja-squad:springmockk")
 
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 }

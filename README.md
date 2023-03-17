@@ -99,7 +99,7 @@ That means that if you include the `spring-boot-app` plugin, you are also includ
 - Kotlin Logger
    - Automatically includes default logging config into your project after build
    - Includes kotlin logging
-     - io.github.microutils:kotlin-logging-jvm
+     - io.github.microutils.kotlin-logging-jvm
      - ch.qos.logback.contrib:logback-json-classic
      - ch.qos.logback.contrib:logback-jackson
 - SpringDoc OpenAPI

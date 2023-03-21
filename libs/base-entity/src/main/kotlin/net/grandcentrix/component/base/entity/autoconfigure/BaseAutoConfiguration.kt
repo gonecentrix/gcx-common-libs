@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Import
 @Import(
     JpaAuditingConfiguration::class,
     RepositoryWithExclusiveLock::class,
-    CustomRepositoryContext::class,
+    CustomRepositoryContext::class
 )
 @EnableConfigurationProperties(DataSourceProperties::class)
 class BaseAutoConfiguration

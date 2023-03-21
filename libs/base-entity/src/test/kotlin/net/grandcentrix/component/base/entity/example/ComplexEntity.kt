@@ -10,5 +10,5 @@ import java.util.UUID
 @Entity
 class ComplexEntity(
     @OneToMany(cascade = [CascadeType.PERSIST], fetch = FetchType.EAGER) var compositeList: MutableList<BaseEntityImpl>,
-    id: UUID = UUID.randomUUID(),
+    id: UUID = UUID.randomUUID()
 ) : AuditBaseEntity(id)

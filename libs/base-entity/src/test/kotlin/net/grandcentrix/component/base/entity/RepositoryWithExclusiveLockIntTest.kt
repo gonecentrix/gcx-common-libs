@@ -28,7 +28,7 @@ import kotlin.concurrent.thread
 class RepositoryWithExclusiveLockIntTest(
     @Autowired private val exampleRepository: ComplexEntityRepository,
     @Autowired private val repositoryWithExclusiveLock: RepositoryWithExclusiveLock,
-    @Autowired private val transactionTemplate: TransactionTemplate,
+    @Autowired private val transactionTemplate: TransactionTemplate
 ) : BaseSpringBootIntegrationTest() {
 
     @SpykBean

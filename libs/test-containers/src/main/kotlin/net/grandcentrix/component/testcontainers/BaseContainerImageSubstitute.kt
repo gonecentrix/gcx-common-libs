@@ -19,9 +19,11 @@ abstract class BaseContainerImageSubstitute(
 ) : ImageNameSubstitutor() {
 
     override fun apply(original: DockerImageName): DockerImageName =
-        if (original.repository.equals(PostgreSQLContainer.IMAGE))
+        if (original.repository.equals(PostgreSQLContainer.IMAGE)) {
             DockerImageName.parse("$imageName:$imageVersion")
-        else original
+        } else {
+            original
+        }
 
     override fun getDescription() = "Replaces PostgreSQL image with $imageName and $imageVersion"
 }

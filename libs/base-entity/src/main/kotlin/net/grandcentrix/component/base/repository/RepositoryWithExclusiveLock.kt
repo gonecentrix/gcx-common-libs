@@ -48,7 +48,7 @@ import kotlin.reflect.KClass
 class RepositoryWithExclusiveLock(
     private val entityManager: EntityManager,
     private val customRepositoryContext: CustomRepositoryContext,
-    private val dataSourceProperties: DataSourceProperties,
+    private val dataSourceProperties: DataSourceProperties
 ) {
     @Suppress("UNCHECKED_CAST")
     fun <T : BaseEntity> findAndObtainExclusiveLockOnItById(ofClass: KClass<T>, id: UUID): T? {

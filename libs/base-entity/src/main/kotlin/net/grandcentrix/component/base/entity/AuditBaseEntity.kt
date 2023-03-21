@@ -20,5 +20,5 @@ abstract class AuditBaseEntity(
     var createdDate: Instant = Instant.now(),
 
     @LastModifiedDate
-    var updatedDate: Instant = Instant.now(),
+    var updatedDate: Instant = Instant.now()
 ) : BaseEntity(id)

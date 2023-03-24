@@ -149,12 +149,14 @@ That means that if you include the `spring-boot-app` plugin, you are also includ
 If you would like to contribute:
 
 1. Create a pull-request
-2. Collect and address feedback from other colleagues (try `#cc-si` slack channel)
+2. Collect and address feedback from other colleagues (try `#backend-engineering` slack channel)
 3. Merge it
 4. Publish it
-5. Communicate on `#cc-si` slack channel about your new additions
+5. Communicate on `#backend-engineering` slack channel about your new additions
 
 ## Publishing
+
+ An automated release workflow is in the works. In the meanwhile:
 
 > Make sure your token has `write:packages` and access to GCX-SI org
 

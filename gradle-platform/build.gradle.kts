@@ -1,21 +1,20 @@
 group = "net.grandcentrix.component"
 
-val kotlinVersion = "1.8.10"
-val ktLint = "11.1.0"
-val springDependencyManagement = "1.1.0"
-val gradleVersions = "0.46.0"
-val owaspDependencyCheck = "8.1.2"
-val springBoot = "3.0.2"
+val kotlinVersion = properties["kotlinVersion"]
+val ktLint = properties["ktLintVersion"]
+val springDependencyManagement = properties["springDependencyManagementVersion"]
+val gradleVersions = properties["gradleVersionsVersion"]
+val owaspDependencyCheck = properties["owaspDependencyCheckVersion"]
+val springBoot = properties["springBootVersion"]
+val detekt = properties["detektVersion"]
 val logbackJson = "0.1.5"
-val kotlinLogging = "3.0.5"
-val sentry = "6.13.1"
-val assertK = "0.25"
+val kotlinLogging = "5.1.10"
+val sentry = "6.32.0"
+val assertK = "0.27.0"
 val springMockK = "4.0.2"
-val springDoc = "2.0.4"
-val detekt = "1.22.0"
-val spring = "6.0.5"
-val jUnit = "5.9.2"
-val testContainers = "1.17.6"
+val springDoc = "2.2.0"
+val jUnitJupiter = "5.9.3"
+val testContainers = "1.19.1"
 
 plugins {
     `java-platform`
@@ -45,9 +44,8 @@ dependencies.constraints {
     api("org.springframework.boot:spring-boot-starter-data-jpa:$springBoot")
     api("org.springframework.boot:spring-boot-starter-test:$springBoot")
     api("org.springframework.boot:spring-boot-test:$springBoot")
-    api("org.springframework:spring-test:$spring")
-    api("org.junit.jupiter:junit-jupiter-engine:$jUnit")
-    api("org.junit.jupiter:junit-jupiter-api:$jUnit")
+    api("org.junit.jupiter:junit-jupiter-engine:$jUnitJupiter")
+    api("org.junit.jupiter:junit-jupiter-api:$jUnitJupiter")
     api("com.willowtreeapps.assertk:assertk-jvm:$assertK")
     api("com.ninja-squad:springmockk:$springMockK")
     api("org.springdoc:springdoc-openapi-ui:$springDoc")
@@ -56,7 +54,7 @@ dependencies.constraints {
     api("org.springdoc:springdoc-openapi-webmvc-core:$springDoc")
     api("org.springdoc:springdoc-openapi-security:$springDoc")
     api("io.sentry:sentry:$sentry")
-    api("io.github.microutils:kotlin-logging-jvm:$kotlinLogging")
+    api("io.github.oshai:kotlin-logging-jvm:$kotlinLogging")
     api("ch.qos.logback.contrib:logback-json-classic:$logbackJson")
     api("ch.qos.logback.contrib:logback-jackson:$logbackJson")
 

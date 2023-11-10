@@ -2,8 +2,6 @@ package net.grandcentrix.component.base.entity
 
 import assertk.all
 import assertk.assertThat
-import assertk.assertions.isFailure
-import assertk.assertions.isInstanceOf
 import assertk.assertions.isNotNull
 import assertk.assertions.prop
 import com.ninjasquad.springmockk.SpykBean
@@ -17,6 +15,7 @@ import net.grandcentrix.component.base.repository.CustomRepositoryContext
 import net.grandcentrix.component.base.repository.RepositoryWithExclusiveLock
 import net.grandcentrix.component.testcontainers.BaseSpringBootIntegrationTest
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.transaction.support.TransactionTemplate
@@ -80,7 +79,9 @@ class RepositoryWithExclusiveLockIntTest(
         }
         val thread2 = thread(start = false) {
             every { customRepositoryContext.afterQueryHook() } just Runs
-            assertThat { findEntity(logicController.id) }.isFailure().isInstanceOf(PessimisticLockException::class)
+            assertThrows<PessimisticLockException> {
+                findEntity(logicController.id)
+            }
         }
 
         thread1.start()

@@ -32,7 +32,7 @@ tasks.register<Copy>("copyDetektConfigFiles") {
 }
 
 detekt {
-    config = files("$rootDir/config/detekt/detekt.yml")
+    config.setFrom(files("$rootDir/config/detekt/detekt.yml"))
     buildUponDefaultConfig = true
     baseline = file("$rootDir/config/detekt/baseline.xml")
 }

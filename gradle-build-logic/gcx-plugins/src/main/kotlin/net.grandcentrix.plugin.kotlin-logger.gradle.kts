@@ -8,7 +8,7 @@ val kotlinLogger: Configuration by configurations.creating {
 
 dependencies {
     implementation(platform("net.grandcentrix.component:gradle-platform"))
-    api("io.github.microutils:kotlin-logging-jvm")
+    api("io.github.oshai:kotlin-logging-jvm")
     runtimeOnly("ch.qos.logback.contrib:logback-json-classic")
     runtimeOnly("ch.qos.logback.contrib:logback-jackson")
     kotlinLogger("net.grandcentrix.component:kotlin-logger:+")

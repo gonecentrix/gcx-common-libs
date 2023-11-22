@@ -16,7 +16,7 @@ abstract class AuditBaseEntity(
     id: UUID = UUID.randomUUID(),
 
     @CreatedDate
-    @Column(updatable = false)
+    @Column(updatable = false, nullable = false)
     var createdDate: Instant = Instant.now(),
 
     @LastModifiedDate

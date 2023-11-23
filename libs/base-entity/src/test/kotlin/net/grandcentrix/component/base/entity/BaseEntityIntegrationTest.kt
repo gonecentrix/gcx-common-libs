@@ -11,6 +11,7 @@ import net.grandcentrix.component.base.entity.example.ComplexEntityRepository
 import net.grandcentrix.component.base.entity.example.LazyFetchedParent
 import net.grandcentrix.component.base.entity.example.LazyFetchedParentRepository
 import net.grandcentrix.component.testcontainers.BaseDatabaseIntegrationTest
+import net.grandcentrix.component.testcontainers.DatabaseIntegrationTest
 import org.hibernate.proxy.HibernateProxy
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -23,8 +24,9 @@ import java.util.UUID
 
 class BaseEntityIntegrationTest {
 
+    @DatabaseIntegrationTest
     @BaseLibraryTest
-    internal class BaseEntityTest(@Autowired val repo: ComplexEntityRepository) : BaseDatabaseIntegrationTest() {
+    internal class BaseEntityTest(@Autowired val repo: ComplexEntityRepository) {
 
         @Test
         fun `when save is called the persist operation is cascaded`() {

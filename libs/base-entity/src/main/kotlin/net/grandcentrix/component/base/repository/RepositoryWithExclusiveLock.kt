@@ -52,7 +52,7 @@ class RepositoryWithExclusiveLock(
 ) {
     @Suppress("UNCHECKED_CAST")
     fun <T : BaseEntity> findAndObtainExclusiveLockOnItById(ofClass: KClass<T>, id: UUID): T? {
-        customRepositoryContext.setLockTimeout(entityManager, dataSourceProperties.lockTimeoutMs)
+        customRepositoryContext.setLockTimeout(entityManager, dataSourceProperties.lockTimeout.toMillis())
 
         val query = entityManager.createQuery(
             "SELECT c FROM " + ofClass.simpleName + " c WHERE c.id = :id"

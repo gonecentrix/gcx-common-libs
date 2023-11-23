@@ -1,8 +1,13 @@
 package net.grandcentrix.component.base.config
 
 import org.springframework.boot.context.properties.ConfigurationProperties
+import org.springframework.boot.convert.DurationUnit
+import java.time.Duration
+import java.time.temporal.ChronoUnit
 
-@ConfigurationProperties("spring.datasource")
+@ConfigurationProperties("grandcentrix.datasource")
 data class DataSourceProperties(
-    val lockTimeoutMs: Long = 3_000
+
+    @DurationUnit(ChronoUnit.MILLIS)
+    val lockTimeout: Duration = Duration.ofMillis(3_000)
 )

@@ -1,26 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
 
-    <springProfile name="dev">
+    <!-- Locally and in GitHub Actions log human-readable console output -->
+    <springProfile name="local|test">
+        <!-- Change the pattern, mainly to include MDC and with some minor improvements: Shorter date, longer thread name, less clutter -->
+        <property name="CONSOLE_LOG_PATTERN" value="%d{HH:mm:ss.SSS} %clr(%5level) %clr([%20.20t]){magenta} %cyan(%-40.40logger{39}): %message %green([%mdc]) %n%wEx"/>
         <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
+        <logger name="net.grandcentrix" level="DEBUG"/>
         <!-- Database Logging -->
         <logger name="org.hibernate.SQL" level="DEBUG"/> <!-- Logs all SQL statements -->
         <logger name="org.springframework.security" level="DEBUG" /> <!-- Logs all Spring Security -->
         <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="WARN"/> <!-- Logs all bindings for the prepared SQL Statements -->
         <logger name="org.springframework.transaction.interceptor" level="WARN"/> <!-- Logs when a transaction starts/completes/rollbacks -->
+
+        <root level="info">
+            <appender-ref ref="CONSOLE"/>
+        </root>
     </springProfile>
 
-    <springProfile name="test">
-        <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
-    </springProfile>
+    <!-- All cloud environments shall log JSON to stdout-->
+    <springProfile name="!(local|test)">
+        <appender name="CONSOLE_JSON" class="ch.qos.logback.core.ConsoleAppender">
+            <!-- Use default JSON encoder -->
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+        </appender>
 
-    <springProfile name="prod">
-        <include resource="log-json.xml"/>
+        <root level="info">
+            <appender-ref ref="CONSOLE_JSON"/>
+        </root>
     </springProfile>
-
-    <root level="WARN">
-        <appender-ref ref="CONSOLE"/>
-    </root>
 </configuration>
-

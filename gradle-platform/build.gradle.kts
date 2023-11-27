@@ -44,6 +44,7 @@ dependencies.constraints {
     api("org.springframework.boot:spring-boot-starter-data-jpa:$springBoot")
     api("org.springframework.boot:spring-boot-starter-test:$springBoot")
     api("org.springframework.boot:spring-boot-test:$springBoot")
+    api("org.springframework.boot:spring-boot-testcontainers:${springBoot}")
     api("org.junit.jupiter:junit-jupiter-engine:$jUnitJupiter")
     api("org.junit.jupiter:junit-jupiter-api:$jUnitJupiter")
     api("com.willowtreeapps.assertk:assertk-jvm:$assertK")

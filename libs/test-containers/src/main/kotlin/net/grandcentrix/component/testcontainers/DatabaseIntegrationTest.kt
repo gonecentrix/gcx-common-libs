@@ -5,12 +5,22 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
-import org.springframework.test.context.ActiveProfiles
 import org.testcontainers.containers.PostgreSQLContainer
 
-@ActiveProfiles("test")
-@ComponentScan("net.grandcentrix.component.testcontainers")
+/**
+ * Annotate to use a single test container postgres database for your integration tests
+ * The PostgreSQL version used here is `14-alpine`
+ * If you would like to change this version you need to extend a BaseContainerImageSubstitute
+ * and add a `testcontainers.properties` file referencing your image name substitute:
+ *
+ * net.grandcentrix.component.base.entity.ContainerImageSubstituteExample
+ *
+ * @see net.grandcentrix.component.base.entity.ContainerImageSubstituteExample
+ * @see net.grandcentrix.component.testcontainers.BaseContainerImageSubstitute
+ */
+@ComponentScan(basePackages = ["net.grandcentrix.component.testcontainers"])
 @Target(AnnotationTarget.CLASS)
+@IntegrationTest
 annotation class DatabaseIntegrationTest {
 
     @Configuration
@@ -20,7 +30,7 @@ annotation class DatabaseIntegrationTest {
 
         @Bean
         @ServiceConnection
-        fun postgresContainer() = PostgreSQLContainer<Nothing>(
+        fun postgresContainer(): PostgreSQLContainer<Nothing> = PostgreSQLContainer<Nothing>(
             "${PostgreSQLContainer.IMAGE}:$postgresVersion"
         ).apply {
             start()

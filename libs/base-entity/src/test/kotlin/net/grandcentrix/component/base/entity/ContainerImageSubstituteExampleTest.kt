@@ -2,11 +2,15 @@ package net.grandcentrix.component.base.entity
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import net.grandcentrix.component.testcontainers.BaseDatabaseIntegrationTest
+import net.grandcentrix.component.testcontainers.DataJpaIntegrationTest
 import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
 import org.testcontainers.containers.PostgreSQLContainer
 
-class ContainerImageSubstituteExampleTest : BaseDatabaseIntegrationTest() {
+@DataJpaIntegrationTest
+class ContainerImageSubstituteExampleTest(
+    @Autowired private val postgreSqlContainer: PostgreSQLContainer<Nothing>
+) {
 
     @Test
     fun `when image name substitute is configured, the container is created using that image`() {

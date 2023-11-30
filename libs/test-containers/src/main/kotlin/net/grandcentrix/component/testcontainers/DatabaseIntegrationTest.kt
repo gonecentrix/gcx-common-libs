@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Profile
 import org.testcontainers.containers.PostgreSQLContainer
 
 /**
- * Annotate to use a single test container postgres database for your integration tests
+ * Annotate test classes use a single test container postgres database for your integration tests
  * The PostgreSQL version used here is `14-alpine`
  * If you would like to change this version you need to extend a BaseContainerImageSubstitute
  * and add a `testcontainers.properties` file referencing your image name substitute:

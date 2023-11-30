@@ -23,4 +23,4 @@ open class EmptyContext
 @EnableJpaRepositories(considerNestedRepositories = true)
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
-annotation class BaseLibraryTest
+internal annotation class BaseLibraryTest

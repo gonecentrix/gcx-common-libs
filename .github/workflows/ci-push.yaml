@@ -6,6 +6,11 @@ on:
 
 jobs:
   lint_tests:
+    permissions:
+      contents: read
+      issues: read
+      checks: write
+      pull-requests: write
     name: Code-Linting, Unit-/Integration-Tests
     runs-on: ubuntu-latest
     steps:

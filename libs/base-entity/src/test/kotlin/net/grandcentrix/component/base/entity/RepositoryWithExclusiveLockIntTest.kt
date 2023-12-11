@@ -13,7 +13,7 @@ import net.grandcentrix.component.base.entity.example.ComplexEntity
 import net.grandcentrix.component.base.entity.example.ComplexEntityRepository
 import net.grandcentrix.component.base.repository.CustomRepositoryContext
 import net.grandcentrix.component.base.repository.RepositoryWithExclusiveLock
-import net.grandcentrix.component.testcontainers.DatabaseIntegrationTest
+import net.grandcentrix.component.testcontainers.DataJpaIntegrationTest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
@@ -23,8 +23,8 @@ import java.lang.Thread.sleep
 import java.util.UUID
 import kotlin.concurrent.thread
 
-@DatabaseIntegrationTest
 @BaseLibraryTest
+@DataJpaIntegrationTest
 class RepositoryWithExclusiveLockIntTest(
     @Autowired private val exampleRepository: ComplexEntityRepository,
     @Autowired private val repositoryWithExclusiveLock: RepositoryWithExclusiveLock,

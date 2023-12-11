@@ -9,10 +9,10 @@ import org.springframework.test.context.ActiveProfiles
 @Target(AnnotationTarget.CLASS)
 annotation class IntegrationTest
 
+@Target(AnnotationTarget.CLASS)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @DatabaseIntegrationTest
-@Target(AnnotationTarget.CLASS)
 annotation class DataJpaIntegrationTest
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

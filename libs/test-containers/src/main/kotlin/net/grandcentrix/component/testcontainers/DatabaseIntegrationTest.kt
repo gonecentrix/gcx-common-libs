@@ -2,8 +2,8 @@ package net.grandcentrix.component.testcontainers
 
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Import
 import org.springframework.context.annotation.Profile
 import org.testcontainers.containers.PostgreSQLContainer
 
@@ -18,9 +18,10 @@ import org.testcontainers.containers.PostgreSQLContainer
  * @see net.grandcentrix.component.base.entity.ContainerImageSubstituteExample
  * @see net.grandcentrix.component.testcontainers.BaseContainerImageSubstitute
  */
-@ComponentScan(basePackages = ["net.grandcentrix.component.testcontainers"])
+
 @Target(AnnotationTarget.CLASS)
 @IntegrationTest
+@Import(DatabaseIntegrationTest.DatabaseTestConfiguration::class)
 annotation class DatabaseIntegrationTest {
 
     @Configuration

@@ -10,7 +10,7 @@ import net.grandcentrix.component.base.entity.example.ComplexEntity
 import net.grandcentrix.component.base.entity.example.ComplexEntityRepository
 import net.grandcentrix.component.base.entity.example.LazyFetchedParent
 import net.grandcentrix.component.base.entity.example.LazyFetchedParentRepository
-import net.grandcentrix.component.testcontainers.DatabaseIntegrationTest
+import net.grandcentrix.component.testcontainers.DataJpaIntegrationTest
 import org.hibernate.proxy.HibernateProxy
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -23,7 +23,7 @@ import java.util.UUID
 
 class BaseEntityIntegrationTest {
 
-    @DatabaseIntegrationTest
+    @DataJpaIntegrationTest
     @BaseLibraryTest
     internal class BaseEntityTest(@Autowired val repo: ComplexEntityRepository) {
 
@@ -65,7 +65,7 @@ class BaseEntityIntegrationTest {
         }
     }
 
-    @DatabaseIntegrationTest
+    @DataJpaIntegrationTest
     @BaseLibraryTest
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     internal class LazyFetchTest(

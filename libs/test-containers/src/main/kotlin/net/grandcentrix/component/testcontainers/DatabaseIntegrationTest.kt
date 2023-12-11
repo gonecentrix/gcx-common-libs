@@ -1,5 +1,6 @@
 package net.grandcentrix.component.testcontainers
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -27,14 +28,17 @@ annotation class DatabaseIntegrationTest {
     @Configuration
     @Profile("test")
     class DatabaseTestConfiguration {
-        private val postgresVersion = "14-alpine"
 
         @Bean
         @ServiceConnection
-        fun postgresContainer(): PostgreSQLContainer<Nothing> = PostgreSQLContainer<Nothing>(
+        fun postgresContainer(postgresVersion: String): PostgreSQLContainer<Nothing> = PostgreSQLContainer<Nothing>(
             "${PostgreSQLContainer.IMAGE}:$postgresVersion"
         ).apply {
             start()
         }
+
+        @Bean(name = ["postgresVersion"])
+        @ConditionalOnMissingBean(name = ["postgresVersion"])
+        fun postgresVersion(): String = "12-alpine"
     }
 }

@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional
 import org.springframework.transaction.support.TransactionTemplate
 import java.lang.Thread.sleep
 import java.util.UUID
+import java.util.concurrent.Executors
 import kotlin.concurrent.thread
 
 @BaseLibraryTest
@@ -72,24 +73,25 @@ class RepositoryWithExclusiveLockIntTest(
             createEntity()
         )
 
-        val thread1 = thread(start = false) {
+        val es = Executors.newFixedThreadPool(2)
+
+        val f1 = es.submit {
             every { customRepositoryContext.afterQueryHook() } answers {
                 sleep(3000)
             }
             findAndAssertResult(logicController.id)
         }
-        val thread2 = thread(start = false) {
+
+        val f2 = es.submit {
             every { customRepositoryContext.afterQueryHook() } just Runs
             assertThrows<PessimisticLockException> {
                 findEntity(logicController.id)
             }
         }
 
-        thread1.start()
-        thread2.start()
-
-        thread1.join()
-        thread2.join()
+        f1.get()
+        f2.get()
+        es.shutdown()
     }
 
     private fun findAndAssertResult(id: UUID) {

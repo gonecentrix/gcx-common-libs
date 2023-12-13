@@ -8,13 +8,12 @@ import com.ninjasquad.springmockk.SpykBean
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
-import jakarta.persistence.PessimisticLockException
 import net.grandcentrix.component.base.entity.example.ComplexEntity
 import net.grandcentrix.component.base.entity.example.ComplexEntityRepository
 import net.grandcentrix.component.base.repository.CustomRepositoryContext
 import net.grandcentrix.component.base.repository.RepositoryWithExclusiveLock
 import net.grandcentrix.component.testcontainers.DataJpaIntegrationTest
-import org.junit.jupiter.api.Test
+import org.hibernate.PessimisticLockException import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.transaction.annotation.Transactional
@@ -66,10 +65,9 @@ class RepositoryWithExclusiveLockIntTest(
         thread2.join()
     }
 
-    @Transactional
     @Test
     fun `second find by id should timeout due to long running lock acquired previously tx`() {
-        val logicController = exampleRepository.save(
+        val complexEntity = exampleRepository.saveAndFlush(
             createEntity()
         )
 
@@ -79,13 +77,13 @@ class RepositoryWithExclusiveLockIntTest(
             every { customRepositoryContext.afterQueryHook() } answers {
                 sleep(3000)
             }
-            findAndAssertResult(logicController.id)
+            findAndAssertResult(complexEntity.id)
         }
 
         val f2 = es.submit {
             every { customRepositoryContext.afterQueryHook() } just Runs
             assertThrows<PessimisticLockException> {
-                findEntity(logicController.id)
+                findEntity(complexEntity.id)
             }
         }
 

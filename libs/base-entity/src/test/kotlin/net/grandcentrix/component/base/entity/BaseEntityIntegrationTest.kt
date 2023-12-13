@@ -12,6 +12,7 @@ import net.grandcentrix.component.base.entity.example.LazyFetchedParent
 import net.grandcentrix.component.base.entity.example.LazyFetchedParentRepository
 import net.grandcentrix.component.testcontainers.DataJpaIntegrationTest
 import org.hibernate.proxy.HibernateProxy
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
@@ -23,9 +24,10 @@ import java.util.UUID
 
 class BaseEntityIntegrationTest {
 
+    @Nested
     @DataJpaIntegrationTest
     @BaseLibraryTest
-    internal class BaseEntityTest(@Autowired val repo: ComplexEntityRepository) {
+    internal inner class BaseEntityTest(@Autowired val repo: ComplexEntityRepository) {
 
         @Test
         fun `when save is called the persist operation is cascaded`() {
@@ -65,10 +67,11 @@ class BaseEntityIntegrationTest {
         }
     }
 
+    @Nested
     @DataJpaIntegrationTest
     @BaseLibraryTest
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
-    internal class LazyFetchTest(
+    internal inner class LazyFetchTest(
         @Autowired val repo: LazyFetchedParentRepository,
         @Autowired val transactionTemplate: TransactionTemplate
     ) {

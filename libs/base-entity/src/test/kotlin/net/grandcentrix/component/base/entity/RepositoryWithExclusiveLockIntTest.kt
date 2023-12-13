@@ -13,7 +13,9 @@ import net.grandcentrix.component.base.entity.example.ComplexEntityRepository
 import net.grandcentrix.component.base.repository.CustomRepositoryContext
 import net.grandcentrix.component.base.repository.RepositoryWithExclusiveLock
 import net.grandcentrix.component.testcontainers.DataJpaIntegrationTest
-import org.hibernate.PessimisticLockException import org.junit.jupiter.api.Test
+import org.hibernate.PessimisticLockException
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.transaction.annotation.Transactional
@@ -21,7 +23,6 @@ import org.springframework.transaction.support.TransactionTemplate
 import java.lang.Thread.sleep
 import java.util.UUID
 import java.util.concurrent.Executors
-import kotlin.concurrent.thread
 
 @BaseLibraryTest
 @DataJpaIntegrationTest
@@ -42,27 +43,24 @@ class RepositoryWithExclusiveLockIntTest(
         findEntity(logicController.id)
     }
 
-    @Transactional
     @Test
     fun `consecutive finds should execute concurrently without errors`() {
-        val logicController = exampleRepository.save(
+        val logicController = exampleRepository.saveAndFlush(
             createEntity()
         )
+        every { customRepositoryContext.afterQueryHook() } just Runs
 
-        val thread1 = thread(start = false) {
-            every { customRepositoryContext.afterQueryHook() } just Runs
+        val es = Executors.newFixedThreadPool(2)
+
+        val f1 = es.submit {
             findAndAssertResult(logicController.id)
         }
-        val thread2 = thread(start = false) {
-            every { customRepositoryContext.afterQueryHook() } just Runs
+        val f2 = es.submit {
             findAndAssertResult(logicController.id)
         }
 
-        thread1.start()
-        thread2.start()
-
-        thread1.join()
-        thread2.join()
+        f1.get()
+        f2.get()
     }
 
     @Test
@@ -73,22 +71,32 @@ class RepositoryWithExclusiveLockIntTest(
 
         val es = Executors.newFixedThreadPool(2)
 
-        val f1 = es.submit {
-            every { customRepositoryContext.afterQueryHook() } answers {
-                sleep(3000)
-            }
-            findAndAssertResult(complexEntity.id)
-        }
+        val lock = Object()
 
         val f2 = es.submit {
-            every { customRepositoryContext.afterQueryHook() } just Runs
-            assertThrows<PessimisticLockException> {
-                findEntity(complexEntity.id)
+            synchronized(lock) {
+                lock.wait(1000)
+                assertThrows<PessimisticLockException> {
+                    findEntity(complexEntity.id)
+                }
+            }
+        }
+
+        val f1 = es.submit {
+            assertDoesNotThrow {
+                transactionTemplate.execute {
+                    synchronized(lock) {
+                        repositoryWithExclusiveLock.findAndObtainExclusiveLockOnItById<ComplexEntity>(complexEntity.id)!!
+                        lock.notifyAll()
+                    }
+                    sleep(3010)
+                }
             }
         }
 
         f1.get()
         f2.get()
+
         es.shutdown()
     }
 

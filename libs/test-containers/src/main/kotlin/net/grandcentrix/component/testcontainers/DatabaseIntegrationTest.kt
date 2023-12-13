@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
 import org.springframework.context.annotation.Profile
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing
 import org.testcontainers.containers.PostgreSQLContainer
 
 /**
@@ -26,6 +27,7 @@ import org.testcontainers.containers.PostgreSQLContainer
 annotation class DatabaseIntegrationTest {
 
     @Configuration
+    @EnableJpaAuditing
     @Profile("test")
     class DatabaseTestConfiguration {
 

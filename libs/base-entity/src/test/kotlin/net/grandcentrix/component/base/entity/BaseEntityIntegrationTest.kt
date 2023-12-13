@@ -4,6 +4,7 @@ import assertk.assertThat
 import assertk.assertions.containsExactlyInAnyOrder
 import assertk.assertions.isEqualTo
 import assertk.assertions.isGreaterThan
+import assertk.assertions.isGreaterThanOrEqualTo
 import assertk.assertions.isInstanceOf
 import net.grandcentrix.component.base.entity.example.BaseEntityImpl
 import net.grandcentrix.component.base.entity.example.ComplexEntity
@@ -50,7 +51,7 @@ class BaseEntityIntegrationTest {
             val id = UUID.randomUUID()
             val now = Instant.now()
 
-            repo.save(ComplexEntity(mutableListOf(), id))
+            repo.saveAndFlush(ComplexEntity(mutableListOf(), id))
             var complexEntity = repo.findByIdOrNull(id)!!
 
             assertThat(complexEntity.createdDate).isGreaterThan(now)
@@ -59,11 +60,11 @@ class BaseEntityIntegrationTest {
             Thread.sleep(10)
 
             complexEntity.compositeList.add(BaseEntityImpl())
-            repo.save(complexEntity)
+            repo.saveAndFlush(complexEntity)
 
             complexEntity = repo.findByIdOrNull(id)!!
 
-            assertThat(complexEntity.updatedDate).isGreaterThan(complexEntity.createdDate)
+            assertThat(complexEntity.updatedDate).isGreaterThanOrEqualTo(complexEntity.createdDate.plusMillis(10))
         }
     }
 

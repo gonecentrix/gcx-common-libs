@@ -12,13 +12,9 @@ import org.testcontainers.containers.PostgreSQLContainer
 /**
  * Annotate test classes use a single test container postgres database for your integration tests
  * The PostgreSQL version used here is `14-alpine`
- * If you would like to change this version you need to extend a BaseContainerImageSubstitute
- * and add a `testcontainers.properties` file referencing your image name substitute:
+ * If you would like to change this version you need to provide a String bean named "postgresVersion" with the
+ * desired version of the postgres image.
  *
- * net.grandcentrix.component.base.entity.ContainerImageSubstituteExample
- *
- * @see net.grandcentrix.component.base.entity.ContainerImageSubstituteExample
- * @see net.grandcentrix.component.testcontainers.BaseContainerImageSubstitute
  */
 
 @Target(AnnotationTarget.CLASS)
@@ -41,6 +37,6 @@ annotation class DatabaseIntegrationTest {
 
         @Bean(name = ["postgresVersion"])
         @ConditionalOnMissingBean(name = ["postgresVersion"])
-        fun postgresVersion(): String = "12-alpine"
+        fun postgresVersion(): String = "14-alpine"
     }
 }

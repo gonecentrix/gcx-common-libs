@@ -12,7 +12,7 @@ dependencies {
 
     implementation(platform("org.testcontainers:testcontainers-bom"))
     implementation("org.testcontainers:junit-jupiter")
-    implementation("org.springframework.boot:spring-boot-testcontainers")
+    api("org.springframework.boot:spring-boot-testcontainers")
     api("org.testcontainers:postgresql")
     api("org.testcontainers:testcontainers")
 

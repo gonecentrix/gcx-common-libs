@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.transaction.support.TransactionTemplate
 import java.lang.Thread.sleep
@@ -26,6 +27,7 @@ import java.util.concurrent.Executors
 
 @BaseLibraryTest
 @DataJpaIntegrationTest
+@Transactional(propagation = Propagation.NEVER)
 class RepositoryWithExclusiveLockIntTest(
     @Autowired private val exampleRepository: ComplexEntityRepository,
     @Autowired private val repositoryWithExclusiveLock: RepositoryWithExclusiveLock,
@@ -48,6 +50,7 @@ class RepositoryWithExclusiveLockIntTest(
         val logicController = exampleRepository.saveAndFlush(
             createEntity()
         )
+
         every { customRepositoryContext.afterQueryHook() } just Runs
 
         val es = Executors.newFixedThreadPool(2)
@@ -75,6 +78,7 @@ class RepositoryWithExclusiveLockIntTest(
 
         val f2 = es.submit {
             synchronized(lock) {
+                sleep(20)
                 lock.wait(1000)
                 assertThrows<PessimisticLockException> {
                     findEntity(complexEntity.id)

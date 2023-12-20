@@ -4,14 +4,16 @@ import assertk.assertThat
 import assertk.assertions.containsExactlyInAnyOrder
 import assertk.assertions.isEqualTo
 import assertk.assertions.isGreaterThan
+import assertk.assertions.isGreaterThanOrEqualTo
 import assertk.assertions.isInstanceOf
 import net.grandcentrix.component.base.entity.example.BaseEntityImpl
 import net.grandcentrix.component.base.entity.example.ComplexEntity
 import net.grandcentrix.component.base.entity.example.ComplexEntityRepository
 import net.grandcentrix.component.base.entity.example.LazyFetchedParent
 import net.grandcentrix.component.base.entity.example.LazyFetchedParentRepository
-import net.grandcentrix.component.testcontainers.BaseDatabaseIntegrationTest
+import net.grandcentrix.component.testcontainers.DataJpaIntegrationTest
 import org.hibernate.proxy.HibernateProxy
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
@@ -23,8 +25,10 @@ import java.util.UUID
 
 class BaseEntityIntegrationTest {
 
+    @Nested
+    @DataJpaIntegrationTest
     @BaseLibraryTest
-    internal class BaseEntityTest(@Autowired val repo: ComplexEntityRepository) : BaseDatabaseIntegrationTest() {
+    internal inner class BaseEntityTest(@Autowired val repo: ComplexEntityRepository) {
 
         @Test
         fun `when save is called the persist operation is cascaded`() {
@@ -47,7 +51,7 @@ class BaseEntityIntegrationTest {
             val id = UUID.randomUUID()
             val now = Instant.now()
 
-            repo.save(ComplexEntity(mutableListOf(), id))
+            repo.saveAndFlush(ComplexEntity(mutableListOf(), id))
             var complexEntity = repo.findByIdOrNull(id)!!
 
             assertThat(complexEntity.createdDate).isGreaterThan(now)
@@ -56,20 +60,22 @@ class BaseEntityIntegrationTest {
             Thread.sleep(10)
 
             complexEntity.compositeList.add(BaseEntityImpl())
-            repo.save(complexEntity)
+            repo.saveAndFlush(complexEntity)
 
             complexEntity = repo.findByIdOrNull(id)!!
 
-            assertThat(complexEntity.updatedDate).isGreaterThan(complexEntity.createdDate)
+            assertThat(complexEntity.updatedDate).isGreaterThanOrEqualTo(complexEntity.createdDate.plusMillis(10))
         }
     }
 
+    @Nested
+    @DataJpaIntegrationTest
     @BaseLibraryTest
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
-    internal class LazyFetchTest(
+    internal inner class LazyFetchTest(
         @Autowired val repo: LazyFetchedParentRepository,
         @Autowired val transactionTemplate: TransactionTemplate
-    ) : BaseDatabaseIntegrationTest() {
+    ) {
 
         @Test
         fun `Check if entities can be fetched lazy`() {

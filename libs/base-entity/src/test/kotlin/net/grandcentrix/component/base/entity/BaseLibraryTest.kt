@@ -1,26 +1,26 @@
 package net.grandcentrix.component.base.entity
 
+import net.grandcentrix.component.base.config.DataSourceProperties
+import net.grandcentrix.component.base.entity.example.ComplexEntityRepository
+import net.grandcentrix.component.base.repository.RepositoryWithExclusiveLock
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.autoconfigure.domain.EntityScan
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
-import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa
-import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.ComponentScan
+import org.springframework.context.annotation.Import
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
-import org.springframework.test.context.ContextConfiguration
 
 @SpringBootApplication
 @ConfigurationPropertiesScan("net.grandcentrix.component.base.config")
 open class EmptyContext
 
-@SpringBootTest(classes = [EmptyContext::class], webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ContextConfiguration
-@AutoConfigureDataJpa
 @EntityScan
-@ComponentScan(basePackages = ["net.grandcentrix.component.base.repository"])
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@EnableJpaRepositories(considerNestedRepositories = true)
+@ComponentScan(basePackageClasses = [RepositoryWithExclusiveLock::class])
+@EnableJpaRepositories(
+    considerNestedRepositories = true,
+    basePackageClasses = [ComplexEntityRepository::class]
+)
+@Import(DataSourceProperties::class)
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
-annotation class BaseLibraryTest
+internal annotation class BaseLibraryTest

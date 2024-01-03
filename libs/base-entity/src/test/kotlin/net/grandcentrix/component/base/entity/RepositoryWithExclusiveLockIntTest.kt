@@ -78,7 +78,6 @@ class RepositoryWithExclusiveLockIntTest(
 
         val f2 = es.submit {
             synchronized(lock) {
-                sleep(20)
                 lock.wait(1000)
                 assertThrows<PessimisticLockException> {
                     findEntity(complexEntity.id)

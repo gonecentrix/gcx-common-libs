@@ -8,23 +8,26 @@ import com.ninjasquad.springmockk.SpykBean
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
-import jakarta.persistence.PessimisticLockException
 import net.grandcentrix.component.base.entity.example.ComplexEntity
 import net.grandcentrix.component.base.entity.example.ComplexEntityRepository
 import net.grandcentrix.component.base.repository.CustomRepositoryContext
 import net.grandcentrix.component.base.repository.RepositoryWithExclusiveLock
 import net.grandcentrix.component.testcontainers.DataJpaIntegrationTest
+import org.hibernate.PessimisticLockException
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.transaction.support.TransactionTemplate
 import java.lang.Thread.sleep
 import java.util.UUID
-import kotlin.concurrent.thread
+import java.util.concurrent.Executors
 
 @BaseLibraryTest
 @DataJpaIntegrationTest
+@Transactional(propagation = Propagation.NEVER)
 class RepositoryWithExclusiveLockIntTest(
     @Autowired private val exampleRepository: ComplexEntityRepository,
     @Autowired private val repositoryWithExclusiveLock: RepositoryWithExclusiveLock,
@@ -37,64 +40,72 @@ class RepositoryWithExclusiveLockIntTest(
     @Transactional
     @Test
     fun `find by id should obtain exclusive lock and find entity successfully`() {
-        val logicController = exampleRepository.save(createEntity())
+        val complexEntity = exampleRepository.save(createEntity())
 
-        findEntity(logicController.id)
+        findEntity(complexEntity.id)
     }
 
-    @Transactional
     @Test
     fun `consecutive finds should execute concurrently without errors`() {
-        val logicController = exampleRepository.save(
+        val complexEntity = exampleRepository.saveAndFlush(
             createEntity()
         )
 
-        val thread1 = thread(start = false) {
-            every { customRepositoryContext.afterQueryHook() } just Runs
-            findAndAssertResult(logicController.id)
+        every { customRepositoryContext.afterQueryHook() } just Runs
+
+        val es = Executors.newFixedThreadPool(2)
+
+        val f1 = es.submit {
+            findAndAssertResult(complexEntity.id)
         }
-        val thread2 = thread(start = false) {
-            every { customRepositoryContext.afterQueryHook() } just Runs
-            findAndAssertResult(logicController.id)
+        val f2 = es.submit {
+            findAndAssertResult(complexEntity.id)
         }
 
-        thread1.start()
-        thread2.start()
-
-        thread1.join()
-        thread2.join()
+        f1.get()
+        f2.get()
     }
 
-    @Transactional
     @Test
     fun `second find by id should timeout due to long running lock acquired previously tx`() {
-        val logicController = exampleRepository.save(
+        val complexEntity = exampleRepository.saveAndFlush(
             createEntity()
         )
 
-        val thread1 = thread(start = false) {
-            every { customRepositoryContext.afterQueryHook() } answers {
-                sleep(3000)
-            }
-            findAndAssertResult(logicController.id)
-        }
-        val thread2 = thread(start = false) {
-            every { customRepositoryContext.afterQueryHook() } just Runs
-            assertThrows<PessimisticLockException> {
-                findEntity(logicController.id)
+        val es = Executors.newFixedThreadPool(2)
+
+        val lock = Object()
+
+        val f2 = es.submit {
+            synchronized(lock) {
+                lock.wait(1000)
+                assertThrows<PessimisticLockException> {
+                    findEntity(complexEntity.id)
+                }
             }
         }
 
-        thread1.start()
-        thread2.start()
+        val f1 = es.submit {
+            assertDoesNotThrow {
+                transactionTemplate.execute {
+                    synchronized(lock) {
+                        repositoryWithExclusiveLock.findAndObtainExclusiveLockOnItById<ComplexEntity>(complexEntity.id)!!
+                        lock.notifyAll()
+                    }
+                    sleep(3010)
+                }
+            }
+        }
 
-        thread1.join()
-        thread2.join()
+        f1.get()
+        f2.get()
+
+        es.shutdown()
     }
 
     private fun findAndAssertResult(id: UUID) {
-        val logicController = findEntity(id)
-        assertThatEntityIsRetrievedCorrectly(logicController)
+        val complexEntity = findEntity(id)
+        assertThatEntityIsRetrievedCorrectly(complexEntity)
     }
 
     private fun createEntity() = ComplexEntity(

@@ -40,14 +40,14 @@ class RepositoryWithExclusiveLockIntTest(
     @Transactional
     @Test
     fun `find by id should obtain exclusive lock and find entity successfully`() {
-        val logicController = exampleRepository.save(createEntity())
+        val complexEntity = exampleRepository.save(createEntity())
 
-        findEntity(logicController.id)
+        findEntity(complexEntity.id)
     }
 
     @Test
     fun `consecutive finds should execute concurrently without errors`() {
-        val logicController = exampleRepository.saveAndFlush(
+        val complexEntity = exampleRepository.saveAndFlush(
             createEntity()
         )
 
@@ -56,10 +56,10 @@ class RepositoryWithExclusiveLockIntTest(
         val es = Executors.newFixedThreadPool(2)
 
         val f1 = es.submit {
-            findAndAssertResult(logicController.id)
+            findAndAssertResult(complexEntity.id)
         }
         val f2 = es.submit {
-            findAndAssertResult(logicController.id)
+            findAndAssertResult(complexEntity.id)
         }
 
         f1.get()
@@ -104,8 +104,8 @@ class RepositoryWithExclusiveLockIntTest(
     }
 
     private fun findAndAssertResult(id: UUID) {
-        val logicController = findEntity(id)
-        assertThatEntityIsRetrievedCorrectly(logicController)
+        val complexEntity = findEntity(id)
+        assertThatEntityIsRetrievedCorrectly(complexEntity)
     }
 
     private fun createEntity() = ComplexEntity(

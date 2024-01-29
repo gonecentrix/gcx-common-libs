@@ -34,7 +34,7 @@ jobs:
           java-version: '17'
 
       - name: Publish
-        uses: gradle/gradle-build-action@v2.4.0
+        uses: gradle/gradle-build-action@v3
         with:
           arguments: publish -Pversion=${{ needs.bump-version.outputs.new_version }}
         env:

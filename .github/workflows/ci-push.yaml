@@ -21,7 +21,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       - name: Gradle Command - check
-        uses: gradle/gradle-build-action@v3
+        uses: gradle/actions/setup-gradle@v3
         with:
           arguments: check --info
       - name: Publish Unit Test Results

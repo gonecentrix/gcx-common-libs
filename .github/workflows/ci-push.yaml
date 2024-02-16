@@ -19,9 +19,9 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: '17'
-          distribution: 'temurin'
+          distribution: 'liberica'
       - name: Gradle Command - check
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/actions/setup-gradle@v3
         with:
           arguments: check --info
       - name: Publish Unit Test Results

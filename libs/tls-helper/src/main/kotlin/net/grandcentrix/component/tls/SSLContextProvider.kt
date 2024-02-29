@@ -1,0 +1,112 @@
+package net.grandcentrix.component.tls
+
+import jakarta.annotation.PostConstruct
+import org.bouncycastle.asn1.pkcs.PrivateKeyInfo
+import org.bouncycastle.jce.provider.BouncyCastleProvider
+import org.bouncycastle.openssl.PEMKeyPair
+import org.bouncycastle.openssl.PEMParser
+import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter
+import org.springframework.stereotype.Component
+import java.io.FileInputStream
+import java.security.KeyStore
+import java.security.PrivateKey
+import java.security.SecureRandom
+import java.security.Security
+import java.security.cert.Certificate
+import java.security.cert.CertificateFactory
+import javax.net.ssl.KeyManagerFactory
+import javax.net.ssl.SSLContext
+import javax.net.ssl.TrustManagerFactory
+
+@Component
+class SSLContextProvider {
+    @PostConstruct
+    fun setup() {
+        Security.addProvider(BouncyCastleProvider())
+    }
+
+    fun create(
+        caPath: String,
+        crtPath: String? = null,
+        keyPath: String? = null,
+        password: String? = null
+    ): SSLContext {
+        val trustManagerFactory =
+            if (caPath.isNotEmpty()) {
+                FileInputStream(caPath).use {
+                    CertificateFactory.getInstance("X.509").generateCertificates(it).toList()
+                }.let {
+                    getTrustManagerFactory(it)
+                }
+            } else {
+                error("No CAs to trust are specified, but TLS usage is enabled")
+            }
+
+        val crtCerts =
+            if (!crtPath.isNullOrEmpty()) {
+                if (keyPath.isNullOrEmpty()) {
+                    error("Specifying certificates to identify this peer without a private is very likely an invalid configuration")
+                }
+                FileInputStream(crtPath).use {
+                    CertificateFactory.getInstance("X.509").generateCertificates(it).toList()
+                }
+            } else {
+                listOf()
+            }
+
+        val keyManagerFactory =
+            if (!keyPath.isNullOrEmpty()) {
+                if (crtCerts.isEmpty()) {
+                    error("A private key is specified, but no certificates. This is very likely an invalid configuration")
+                }
+                FileInputStream(keyPath).use {
+                    when (val keyObject = PEMParser(it.reader()).readObject()) {
+                        is PEMKeyPair -> JcaPEMKeyConverter().getKeyPair(keyObject).private
+                        is PrivateKeyInfo -> JcaPEMKeyConverter().getPrivateKey(keyObject)
+                        else -> error("Unknown result of PEMParser.readObject: ${it.javaClass}")
+                    }
+                }.let {
+                    getKeyManagerFactory(crtCerts, it, password ?: "")
+                }
+            } else {
+                KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm()).apply {
+                    init(
+                        KeyStore.getInstance(KeyStore.getDefaultType()).apply {
+                            load(null, null)
+                        },
+                        "".toCharArray()
+                    )
+                }
+            }
+
+        return SSLContext.getInstance("TLSv1.3").apply {
+            init(keyManagerFactory.keyManagers, trustManagerFactory.trustManagers, SecureRandom.getInstanceStrong())
+        }
+    }
+
+    private fun getKeyManagerFactory(
+        crts: List<Certificate>,
+        key: PrivateKey?,
+        password: String
+    ): KeyManagerFactory =
+        KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm()).apply {
+            init(
+                KeyStore.getInstance(KeyStore.getDefaultType()).apply {
+                    load(null, null)
+                    crts.forEachIndexed { index, cert -> setCertificateEntry("cert-$index", cert) }
+                    setKeyEntry("key", key, password.toCharArray(), crts.toTypedArray())
+                },
+                password.toCharArray()
+            )
+        }
+
+    private fun getTrustManagerFactory(caList: List<Certificate>): TrustManagerFactory =
+        TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm()).apply {
+            init(
+                KeyStore.getInstance(KeyStore.getDefaultType()).apply {
+                    load(null, null)
+                    caList.forEachIndexed { index, cert -> setCertificateEntry("ca-$index", cert) }
+                }
+            )
+        }
+}

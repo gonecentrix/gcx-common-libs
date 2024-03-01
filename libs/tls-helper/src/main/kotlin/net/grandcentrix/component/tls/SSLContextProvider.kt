@@ -18,6 +18,10 @@ import javax.net.ssl.KeyManagerFactory
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManagerFactory
 
+/**
+ * This component configures BouncyCastle as security provider and allows creating SSLContext to be used for
+ * TLS secured connections.
+ */
 @Component
 class SSLContextProvider {
     @PostConstruct
@@ -25,6 +29,20 @@ class SSLContextProvider {
         Security.addProvider(BouncyCastleProvider())
     }
 
+    /**
+     * This method creates a java.net.ssl.SSLContext based on the given certificates and keys. This can be used
+     * to authenticate either as a server or a client, depending on the provided certificates. Currently only one
+     * certificate chain is supported and the provided are not reloaded during runtime when changed.
+     *
+     * If only the caPath is provided this context can only be used to verify the identity of remote parties.
+     *
+     * If caPath, crtPath and keyPath are provided this context can be used for full mTLS.
+     *
+     * @param caPath The path to the PEM encoded CA certificate to trust
+     * @param crtPath The path to the file containing one or multiple PEM encoded certificates to identify as
+     * @param keyPath The path to the PEM encoded private key matching the public key in the leaf certificate of the previous certificate chain
+     * @param password Optional password for the underlying KeyStore
+     */
     fun create(
         caPath: String,
         crtPath: String? = null,

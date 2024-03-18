@@ -29,8 +29,26 @@ class SSLContextProvider {
         Security.addProvider(BouncyCastleProvider())
     }
 
+    /**
+     * This creates a java.net.ssl.SSLContext used for verification of the server certificate. No client
+     * verification can be achieved with this.
+     * @param caPath The path to the PEM encoded file containing the trusted CA certificates to verify server
+     *               certificates against
+     */
     fun create(caPath: String) = createContext(caPath = caPath, crtPath = null, keyPath = null, password = null)
 
+    /**
+     * This creates a java.net.ssl.SSLContext used for mTLS. Both the server and the client will be able to validate
+     * the identity of each other.
+     *
+     * @param caPath The path to the PEM encoded file containing the trusted CA certificates to verify s
+     *               erver certificates against
+     * @param crtPath The path to the PEM encoded file containing the client certificate chain presented from the
+     *                client to the server during handshake
+     * @param keyPath The path to the PEM encoded file containing the private key belonging to the client leaf
+     *                certificate identifying this client
+     * @param password Optional password for the KeyStore, usually not set
+     */
     fun create(caPath: String, crtPath: String, keyPath: String, password: String? = null) =
         createContext(caPath, crtPath, keyPath, password)
 

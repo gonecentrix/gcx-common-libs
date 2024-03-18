@@ -29,6 +29,11 @@ class SSLContextProvider {
         Security.addProvider(BouncyCastleProvider())
     }
 
+    fun create(caPath: String) = createContext(caPath = caPath, crtPath = null, keyPath = null, password = null)
+
+    fun create(caPath: String, crtPath: String, keyPath: String, password: String? = null) =
+        createContext(caPath, crtPath, keyPath, password)
+
     /**
      * This method creates a java.net.ssl.SSLContext based on the given certificates and keys. This can be used
      * to authenticate either as a server or a client, depending on the provided certificates. Currently only one
@@ -43,28 +48,22 @@ class SSLContextProvider {
      * @param keyPath The path to the PEM encoded private key matching the public key in the leaf certificate of the previous certificate chain
      * @param password Optional password for the underlying KeyStore
      */
-    fun create(
+    fun createContext(
         caPath: String,
-        crtPath: String? = null,
-        keyPath: String? = null,
-        password: String? = null
+        crtPath: String?,
+        keyPath: String?,
+        password: String?
     ): SSLContext {
-        val trustManagerFactory =
-            if (caPath.isNotEmpty()) {
-                FileInputStream(caPath).use {
-                    CertificateFactory.getInstance("X.509").generateCertificates(it).toList()
-                }.let {
-                    getTrustManagerFactory(it)
-                }
-            } else {
-                error("No CAs to trust are specified, but TLS usage is enabled")
-            }
+        require(caPath.isNotEmpty()) { "No CAs to trust are specified, but TLS usage is enabled" }
+        val trustManagerFactory = FileInputStream(caPath).use {
+            CertificateFactory.getInstance("X.509").generateCertificates(it).toList()
+        }.let {
+            getTrustManagerFactory(it)
+        }
 
         val crtCerts =
             if (!crtPath.isNullOrEmpty()) {
-                if (keyPath.isNullOrEmpty()) {
-                    error("Specifying certificates to identify this peer without a private is very likely an invalid configuration")
-                }
+                require(!keyPath.isNullOrEmpty()) { "Specifying certificates to identify this peer without a private is very likely an invalid configuration" }
                 FileInputStream(crtPath).use {
                     CertificateFactory.getInstance("X.509").generateCertificates(it).toList()
                 }
@@ -74,9 +73,7 @@ class SSLContextProvider {
 
         val keyManagerFactory =
             if (!keyPath.isNullOrEmpty()) {
-                if (crtCerts.isEmpty()) {
-                    error("A private key is specified, but no certificates. This is very likely an invalid configuration")
-                }
+                require(crtCerts.isNotEmpty()) { "A private key is specified, but no certificates. This is very likely an invalid configuration" }
                 FileInputStream(keyPath).use {
                     when (val keyObject = PEMParser(it.reader()).readObject()) {
                         is PEMKeyPair -> JcaPEMKeyConverter().getKeyPair(keyObject).private

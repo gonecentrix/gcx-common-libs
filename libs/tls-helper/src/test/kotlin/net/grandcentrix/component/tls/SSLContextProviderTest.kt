@@ -24,8 +24,8 @@ class SSLContextProviderTest(
         val certPath = sslContextProvider.getResourcePath("test-files/certs/server.crt")
         val keyPath = sslContextProvider.getResourcePath("test-files/private/server.key")
 
-        assertThrows<IllegalStateException> {
-            sslContextProvider.create(crtPath = certPath, keyPath = keyPath, caPath = "")
+        assertThrows<IllegalArgumentException> {
+            sslContextProvider.createContext(crtPath = certPath, keyPath = keyPath, caPath = "", password = null)
         }
     }
 
@@ -45,8 +45,8 @@ class SSLContextProviderTest(
         val certPath = sslContextProvider.getResourcePath("test-files/certs/server.crt")
         val caCertPath = sslContextProvider.getResourcePath("test-files/certs/ca.cert")
 
-        assertThrows<IllegalStateException> {
-            sslContextProvider.create(crtPath = certPath, caPath = caCertPath)
+        assertThrows<IllegalArgumentException> {
+            sslContextProvider.createContext(crtPath = certPath, caPath = caCertPath, keyPath = null, password = null)
         }
     }
 
@@ -55,8 +55,8 @@ class SSLContextProviderTest(
         val keyPath = sslContextProvider.getResourcePath("test-files/private/server.key")
         val caCertPath = sslContextProvider.getResourcePath("test-files/certs/ca.cert")
 
-        assertThrows<IllegalStateException> {
-            sslContextProvider.create(keyPath = keyPath, caPath = caCertPath)
+        assertThrows<IllegalArgumentException> {
+            sslContextProvider.createContext(keyPath = keyPath, caPath = caCertPath, crtPath = null, password = null)
         }
     }
 }

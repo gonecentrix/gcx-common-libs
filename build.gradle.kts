@@ -5,10 +5,11 @@ object Project {
     const val TestContainers = "test-containers"
     const val GcxLogging = "kotlin-logger"
     const val Detekt = "artur-bosch-detekt"
+    const val TlsHelper = "tls-helper"
 }
 
 val allLibProjects = listOf(Project.BaseEntity, Project.TestContainers, Project.GcxLogging, Project.Detekt,
-    Project.Plugins
+    Project.TlsHelper, Project.Plugins
 )
 
 tasks.register("build") {

@@ -48,7 +48,7 @@ class SSLContextProvider {
      * @param keyPath The path to the PEM encoded private key matching the public key in the leaf certificate of the previous certificate chain
      * @param password Optional password for the underlying KeyStore
      */
-    fun createContext(
+    private fun createContext(
         caPath: String,
         crtPath: String?,
         keyPath: String?,

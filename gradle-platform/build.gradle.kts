@@ -8,6 +8,7 @@ val owaspDependencyCheck = properties["owaspDependencyCheckVersion"]
 val springBoot = properties["springBootVersion"]
 val detekt = properties["detektVersion"]
 val logbackJson = "0.1.5"
+val logbackEncoder = "7.4"
 val kotlinLogging = "5.1.10"
 val sentry = "6.32.0"
 val assertK = "0.27.0"
@@ -58,6 +59,7 @@ dependencies.constraints {
     api("io.github.oshai:kotlin-logging-jvm:$kotlinLogging")
     api("ch.qos.logback.contrib:logback-json-classic:$logbackJson")
     api("ch.qos.logback.contrib:logback-jackson:$logbackJson")
+    api("net.logstash.logback:logstash-logback-encoder:$logbackEncoder")
 
     api("org.testcontainers:testcontainers-bom:$testContainers")
     api("org.testcontainers:junit-jupiter:$testContainers")

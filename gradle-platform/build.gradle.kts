@@ -14,7 +14,7 @@ val sentry = "6.32.0"
 val assertK = "0.27.0"
 val springMockK = "4.0.2"
 val springDoc = "2.2.0"
-val jUnitJupiter = "5.9.3"
+val jUnitJupiter = "5.10.2"
 val testContainers = "1.19.1"
 
 plugins {

@@ -7,4 +7,6 @@ plugins {
 
 dependencies {
     implementation(platform("net.grandcentrix.component:gradle-platform"))
+
+    implementation("net.logstash.logback:logstash-logback-encoder")
 }

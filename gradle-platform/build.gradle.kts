@@ -15,7 +15,7 @@ val assertK = "0.28.1"
 val springMockK = "4.0.2"
 val springDoc = "2.2.0"
 val jUnitJupiter = "5.10.2"
-val testContainers = "1.19.7"
+val testContainers = "1.19.8"
 
 plugins {
     `java-platform`

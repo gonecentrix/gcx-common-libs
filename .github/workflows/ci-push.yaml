@@ -21,9 +21,9 @@ jobs:
           java-version: '17'
           distribution: 'liberica'
       - name: Gradle Command - check
-        uses: gradle/actions/setup-gradle@v3
-        with:
-          arguments: check --info
+        uses: gradle/actions/setup-gradle@v4
+      - name: Run gradlew check
+        run: ./gradlew check --info
       - name: Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()

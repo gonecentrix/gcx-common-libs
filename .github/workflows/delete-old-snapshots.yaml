@@ -1,0 +1,22 @@
+name: Delete Old Snapshots
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Run every day at midnight
+
+jobs:
+  delete-old-snapshots:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package_name:
+          - net.grandcentrix.component.gradle-platform
+    steps:
+      - name: Delete old snapshots
+        uses: actions/delete-package-versions@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          min-versions-to-keep: 20
+          package-type: maven
+          package-name: ${{ matrix.package_name }}
+          delete-only-pre-release-versions: true

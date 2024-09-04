@@ -19,6 +19,11 @@ jobs:
         with:
           java-version: '17'
           distribution: 'liberica'
+          cache: gradle
+          cache-dependency-path: |
+            libs/*/*.gradle*
+            libs/*/**/gradle-wrapper.properties
+            gradle-platform/*.gradle*
       - name: Gradle Setup
         uses: gradle/actions/setup-gradle@v4
       - name: Run gradlew check

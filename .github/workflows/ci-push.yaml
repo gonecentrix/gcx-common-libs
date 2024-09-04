@@ -41,6 +41,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'liberica'
       - uses: actions-ecosystem/action-get-latest-tag@v1
         id: get-latest-tag
         with:

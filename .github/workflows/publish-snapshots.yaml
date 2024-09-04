@@ -1,35 +1,12 @@
-name: CI
+name: Publish Snapshots
 on:
   workflow_dispatch:
   push:
     branches: [ ]
 
 jobs:
-  lint_tests:
-    permissions:
-      contents: read
-      issues: read
-      checks: write
-      pull-requests: write
-    name: Code-Linting, Unit-/Integration-Tests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup Java JDK
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'liberica'
-      - name: Gradle Setup
-        uses: gradle/actions/setup-gradle@v4
-      - name: Run gradlew check
-        run: ./gradlew check --info
-      - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2
-        if: always()
-        with:
-          files: "*/*/build/test-results/test/*.xml"
-
+  ci:
+    uses: ./.github/workflows/ci.yaml
   publish_snapshot:
     permissions:
       contents: read
@@ -37,7 +14,7 @@ jobs:
     env:
       BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
     name: Publishing Snapshot
-    needs: lint_tests
+    needs: ci
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -60,7 +37,7 @@ jobs:
       - run: |
           SUFFIX="SNAPSHOT"
           if [ "${BRANCH_NAME}" != "main" ]; then
-            SUFFIX="${SUFFIX}-${BRANCH_NAME}"
+           SUFFIX="${SUFFIX}-${BRANCH_NAME}"
           fi
           echo "SNAPSHOT_VERSION=${{ steps.bump-semver.outputs.new_version }}-${SUFFIX}" >> "$GITHUB_OUTPUT"
         id: snapshot_version

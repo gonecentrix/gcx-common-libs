@@ -1,0 +1,17 @@
+name: Setup JDK and Gradle
+description: Setups the desired JDK and gradle for projects in this repository
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Java JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'liberica'
+        cache: gradle
+        cache-dependency-path: |
+          libs/*/*.gradle*
+          libs/*/**/gradle-wrapper.properties
+          gradle-platform/*.gradle*
+    - name: Gradle Setup
+      uses: gradle/actions/setup-gradle@v4

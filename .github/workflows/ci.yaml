@@ -14,18 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Java JDK
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'liberica'
-          cache: gradle
-          cache-dependency-path: |
-            libs/*/*.gradle*
-            libs/*/**/gradle-wrapper.properties
-            gradle-platform/*.gradle*
-      - name: Gradle Setup
-        uses: gradle/actions/setup-gradle@v4
+      - uses: ./.github/actions/setup-jdk-gradle
       - name: Run gradlew check
         run: ./gradlew check --info
       - name: Publish Unit Test Results

@@ -42,7 +42,7 @@ jobs:
       - run: |
           SUFFIX="SNAPSHOT"
           if [ "${BRANCH_NAME}" != "main" ]; then
-           SUFFIX="${SUFFIX}-${BRANCH_NAME}"
+           SUFFIX="${BRANCH_NAME}-${SUFFIX}"
           fi
           echo "SNAPSHOT_VERSION=${{ steps.bump-semver.outputs.new_version }}-${SUFFIX}" >> "$GITHUB_OUTPUT"
         id: snapshot_version

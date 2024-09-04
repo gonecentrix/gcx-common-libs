@@ -46,6 +46,8 @@ jobs:
         with:
           java-version: '17'
           distribution: 'liberica'
+      - name: Gradle Setup
+        uses: gradle/actions/setup-gradle@v4
       - uses: actions-ecosystem/action-get-latest-tag@v1
         id: get-latest-tag
         with:

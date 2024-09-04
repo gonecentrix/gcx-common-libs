@@ -64,6 +64,6 @@ jobs:
           fi
           echo "SNAPSHOT_VERSION=${{ steps.bump-semver.outputs.new_version }}-${SUFFIX}" >> "$GITHUB_OUTPUT"
         id: snapshot_version
-      - run: ./gradlew release -Pversion=${{ steps.snapshot_version.outputs.SNAPSHOT_VERSION }}
+      - run: ./gradlew publish -Pversion=${{ steps.snapshot_version.outputs.SNAPSHOT_VERSION }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

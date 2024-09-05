@@ -18,7 +18,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - uses: ./.github/actions/setup-jdk-gradle
+
+      - uses: ncipollo/release-action@v1
+        with:
+          makeLatest: true
+          generateReleaseNotes: true
 
       - name: Publish package
         run: ./gradlew publish -Pversion=${{ github.ref_name }}

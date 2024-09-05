@@ -12,6 +12,25 @@ jobs:
       matrix:
         package_name:
           - net.grandcentrix.component.gradle-platform
+          - net.grandcentrix.plugin.detekt.net.grandcentrix.plugin.detekt.gradle.plugin
+          - net.grandcentrix.plugin.gcx-plugins
+          - net.grandcentrix.plugin.spring-boot-lib.net.grandcentrix.plugin.spring-boot-lib.gradle.plugin
+          - net.grandcentrix.plugin.spring-boot-app.net.grandcentrix.plugin.spring-boot-app.gradle.plugin
+          - net.grandcentrix.component.base-entity
+          - net.grandcentrix.plugin.kotlin-logger.net.grandcentrix.plugin.kotlin-logger.gradle.plugin
+          - net.grandcentrix.component.kotlin-logger
+          - net.grandcentrix.component.artur-bosch-detekt
+          - net.grandcentrix.plugin.springdoc-openapi.net.grandcentrix.plugin.springdoc-openapi.gradle.plugin
+          - net.grandcentrix.component.test-containers
+          - net.grandcentrix.plugin.spring-boot.net.grandcentrix.plugin.spring-boot.gradle.plugin
+          - net.grandcentrix.component.base
+          - net.grandcentrix.component.mqtt
+          - net.grandcentrix.component.tls-helper
+          - net.grandcentrix.component.kotlin-logging-starter
+          - net.grandcentrix.plugin.kotlin-base.net.grandcentrix.plugin.kotlin-base.gradle.plugin
+          - net.grandcentrix.plugin.github-publish.net.grandcentrix.plugin.github-publish.gradle.plugin
+          - net.grandcentrix.plugin.spring-boot-base.net.grandcentrix.plugin.spring-boot-base.gradle.plugin
+          - net.grandcentrix.plugin.spring-boot-starter.net.grandcentrix.plugin.spring-boot-starter.gradle.plugin
     steps:
       - name: Delete old snapshots
         uses: actions/delete-package-versions@v5

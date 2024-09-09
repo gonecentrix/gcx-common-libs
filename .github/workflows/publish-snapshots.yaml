@@ -2,7 +2,10 @@ name: Publish Snapshots
 on:
   workflow_dispatch:
   push:
-    branches: [ ]
+    branches-ignore:
+      - main
+    branches:
+      - "*"
 
 jobs:
   ci:
@@ -34,10 +37,7 @@ jobs:
           level: preminor
 
       - run: |
-          SUFFIX="SNAPSHOT"
-          if [ "${BRANCH_NAME}" != "main" ]; then
-           SUFFIX="${BRANCH_NAME}-${SUFFIX}"
-          fi
+          SUFFIX="${BRANCH_NAME}-SNAPSHOT"
           echo "SNAPSHOT_VERSION=${{ steps.bump-semver.outputs.new_version }}-${SUFFIX}" >> "$GITHUB_OUTPUT"
         id: snapshot_version
 

@@ -2,8 +2,8 @@ name: Release
 
 on:
   push:
-    tags:
-      - "v[0-9]+.[0-9]+.[0-9]+-?*"
+    branches:
+      - main
 
 jobs:
   ci:
@@ -21,12 +21,19 @@ jobs:
 
       - uses: ./.github/actions/setup-jdk-gradle
 
+      - run: |
+          SUFFIX="${BRANCH_NAME}-SNAPSHOT"
+          # Generate CalVer in the form YearMonthDayHour
+          echo "CALVER=$(date +'%Y%m%d%H')" >> "$GITHUB_OUTPUT"
+        id: calver
+
       - uses: ncipollo/release-action@v1
         with:
+          name: ${{ steps.calver.outputs.CALVER }}
           makeLatest: true
           generateReleaseNotes: true
 
       - name: Publish package
-        run: ./gradlew publish -Pversion=${{ github.ref_name }}
+        run: ./gradlew publish -Pversion=${{ steps.calver.outputs.CALVER }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

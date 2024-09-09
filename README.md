@@ -170,14 +170,13 @@ If you would like to contribute:
 
 ## Publishing
 
-Snapshots are published from the main branch on every update. Additionally, snapshots are generated
-from every branch on every update. These branch specific snapshots are have the `SNAPSHOT` suffix
-prefixed with the branch name `<branch-name>-SNAPSHOT`. This should make early testing of new
-features and components as convenient as possible and reduce the need for project specific snapshots.
+Snapshots are published from every branch (except main) on every update. These branch specific snapshots
+have the `SNAPSHOT` suffix prefixed with the branch name `<branch-name>-SNAPSHOT`. This should make
+early testing of new features and components as convenient as possible and reduce the need for project
+specific snapshots.
 
-Actual releases (in the sense of gradle/maven, not SemVer) are build everytime a tag matching
-a valid SemVer version is pushed. The version is to be decided manually right now. Also, there
-are currently no checks against pushing a smaller version than the latest version, so be aware!
+Actual releases (in the sense of gradle/maven, not SemVer) are build everytime a change is pushed to main.
+These releases are versioned using [CalVer](https://calver.org/).
 
 ## Projects adopting the GCX Common Libs
 

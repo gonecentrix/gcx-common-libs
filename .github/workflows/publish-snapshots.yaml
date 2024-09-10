@@ -1,0 +1,44 @@
+name: Publish Snapshots
+on:
+  workflow_dispatch:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  ci:
+    uses: ./.github/workflows/ci.yaml
+
+  publish_snapshot:
+    permissions:
+      contents: read
+      packages: write
+    env:
+      BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+    name: Publishing Snapshot
+    needs: ci
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: ./.github/actions/setup-jdk-gradle
+
+      - uses: actions-ecosystem/action-get-latest-tag@v1
+        id: get-latest-tag
+        with:
+          semver_only: true
+
+      - uses: actions-ecosystem/action-bump-semver@v1
+        id: bump-semver
+        with:
+          current_version: ${{ steps.get-latest-tag.outputs.tag }}
+          level: preminor
+
+      - run: |
+          SUFFIX="${BRANCH_NAME}-SNAPSHOT"
+          echo "SNAPSHOT_VERSION=${{ steps.bump-semver.outputs.new_version }}-${SUFFIX}" >> "$GITHUB_OUTPUT"
+        id: snapshot_version
+
+      - run: ./gradlew publish -Pversion=${{ steps.snapshot_version.outputs.SNAPSHOT_VERSION }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

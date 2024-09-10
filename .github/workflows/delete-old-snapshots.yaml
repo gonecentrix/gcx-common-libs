@@ -36,7 +36,7 @@ jobs:
         uses: actions/delete-package-versions@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          min-versions-to-keep: 20
+          min-versions-to-keep: 5
           package-type: maven
           package-name: ${{ matrix.package_name }}
           delete-only-pre-release-versions: true

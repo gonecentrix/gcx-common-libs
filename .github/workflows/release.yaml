@@ -12,7 +12,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
     needs: [ ci ]
 
@@ -31,6 +31,8 @@ jobs:
           name: ${{ steps.calver.outputs.CALVER }}
           makeLatest: true
           generateReleaseNotes: true
+          commit: ${{ github.sha }}
+          tag: ${{ steps.calver.outputs.CALVER }}
 
       - name: Publish package
         run: ./gradlew publish -Pversion=${{ steps.calver.outputs.CALVER }}

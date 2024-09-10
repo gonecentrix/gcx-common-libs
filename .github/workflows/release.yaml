@@ -22,7 +22,6 @@ jobs:
       - uses: ./.github/actions/setup-jdk-gradle
 
       - run: |
-          SUFFIX="${BRANCH_NAME}-SNAPSHOT"
           # Generate CalVer in the form YearMonthDayHour
           echo "CALVER=$(date +'%Y%m%d%H')" >> "$GITHUB_OUTPUT"
         id: calver

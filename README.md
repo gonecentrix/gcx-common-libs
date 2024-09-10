@@ -175,7 +175,7 @@ have the `SNAPSHOT` suffix prefixed with the branch name `<branch-name>-SNAPSHOT
 early testing of new features and components as convenient as possible and reduce the need for project
 specific snapshots.
 
-Actual releases (in the sense of gradle/maven, not SemVer) are build everytime a change is pushed to main.
+Actual releases (in the sense of gradle/maven, not SemVer) are built everytime a change is pushed to main.
 These releases are versioned using [CalVer](https://calver.org/).
 
 ## Projects adopting the GCX Common Libs

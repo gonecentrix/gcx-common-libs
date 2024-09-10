@@ -8,7 +8,8 @@ object Project {
     const val TlsHelper = "tls-helper"
 }
 
-val allLibProjects = listOf(Project.BaseEntity, Project.TestContainers, Project.GcxLogging, Project.Detekt,
+val allLibProjects = listOf(
+    Project.BaseEntity, Project.TestContainers, Project.GcxLogging, Project.Detekt,
     Project.TlsHelper, Project.Plugins
 )
 
@@ -58,5 +59,13 @@ tasks.register("publish") {
     dependsOn(gradle.includedBuild(Project.Platform).task(":publish"))
     allLibProjects.forEach { project ->
         dependsOn(gradle.includedBuild(project).task(":publish"))
+    }
+}
+
+tasks.register("cyclonedxBom") {
+    group = "build"
+    description = "Assembles a CycloneDX SBOM for component"
+    allLibProjects.forEach { project ->
+        dependsOn(gradle.includedBuild(project).task(":cyclonedxBom"))
     }
 }

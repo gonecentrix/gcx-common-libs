@@ -15,6 +15,7 @@ dependencies {
     implementation("io.spring.dependency-management:io.spring.dependency-management.gradle.plugin:${properties["springDependencyManagementVersion"]}")
     implementation("com.github.ben-manes.versions:com.github.ben-manes.versions.gradle.plugin:${properties["gradleVersionsVersion"]}")
     implementation("io.gitlab.arturbosch.detekt:io.gitlab.arturbosch.detekt.gradle.plugin:${properties["detektVersion"]}")
+    implementation("org.cyclonedx:cyclonedx-gradle-plugin:${properties["cyclonedxVersion"]}")
 }
 
 publishing {

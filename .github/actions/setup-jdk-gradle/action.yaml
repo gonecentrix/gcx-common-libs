@@ -6,7 +6,7 @@ runs:
     - name: Setup Java JDK
       uses: actions/setup-java@v4
       with:
-        java-version: '17'
+        java-version: '21'
         distribution: 'liberica'
         cache: gradle
         cache-dependency-path: |

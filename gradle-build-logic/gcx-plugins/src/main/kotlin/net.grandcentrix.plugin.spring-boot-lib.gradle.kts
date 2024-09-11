@@ -2,10 +2,7 @@ import groovy.xml.dom.DOMCategory.attributes
 
 plugins {
     id("net.grandcentrix.plugin.spring-boot-base")
-    id("org.cyclonedx.gradle.CycloneDxPlugin")
 }
-
-apply(plugin = "org.cyclonedx.gradle.CycloneDxPlugin")
 
 dependencies {
     implementation(platform("net.grandcentrix.component:gradle-platform"))

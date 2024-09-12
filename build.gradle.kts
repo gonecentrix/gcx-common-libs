@@ -63,7 +63,7 @@ tasks.register("publish") {
 }
 
 tasks.register("cyclonedxBom") {
-    group = "build"
+    group = "reporting"
     description = "Assembles a CycloneDX SBOM for component"
     allLibProjects.forEach { project ->
         dependsOn(gradle.includedBuild(project).task(":cyclonedxBom"))

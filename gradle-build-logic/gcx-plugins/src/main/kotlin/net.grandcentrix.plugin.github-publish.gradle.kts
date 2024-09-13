@@ -1,8 +1,9 @@
+import gradle.kotlin.dsl.accessors._f5e0d7329a9228748f36ff923d816335.publishing
+
 group = "net.grandcentrix.component"
 
 plugins {
     id("net.grandcentrix.plugin.kotlin-base")
-    id("net.grandcentrix.plugin.cyclonedx")
     `maven-publish`
 }
 

@@ -1,4 +1,4 @@
-import gradle.kotlin.dsl.accessors._4fbff5071b8ed094c65db737a1ab055e.cyclonedxBom
+import org.gradle.kotlin.dsl.invoke
 
 plugins {
     id("org.cyclonedx.bom")

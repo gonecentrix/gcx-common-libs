@@ -1,9 +1,14 @@
 group = "net.grandcentrix.plugin"
 
 plugins {
+    id("org.cyclonedx.bom") version "1.10.0"
     `kotlin-dsl`
     `maven-publish`
 }
+
+repositories.gradlePluginPortal()
+
+apply(plugin = "org.cyclonedx.bom")
 
 dependencies {
     implementation("org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:${properties["kotlinVersion"]}")

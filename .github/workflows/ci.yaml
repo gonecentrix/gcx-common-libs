@@ -27,7 +27,7 @@ jobs:
           files: "*/*/build/test-results/test/*.xml"
 
       - name: Create SBOMs
-        run: ./gradlew cyclonedxBom
+        run: ./gradlew --refresh-dependencies --no-configuration-cache cyclonedxBom
 
       - uses: actions/upload-artifact@v4
         with:

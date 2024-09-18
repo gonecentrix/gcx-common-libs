@@ -12,6 +12,6 @@ tasks.register("publish") {
 
 tasks.register("cyclonedxBom") {
     group = "reporting"
-    description = "Generates the SBOM of all components"
+    description = "Generates SBOMs for all components"
     dependsOn(gradle.includedBuild("gcx-plugins").task(":cyclonedxBom"))
 }

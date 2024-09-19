@@ -20,6 +20,7 @@ jobs:
           - tls-helper
 
     steps:
+      - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:
           name: sbom
@@ -33,10 +34,10 @@ jobs:
           project-version: '${{ inputs.version }}'
 
   upload-plugins-sbom:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:
           name: sbom

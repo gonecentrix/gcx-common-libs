@@ -14,3 +14,9 @@ updates:
       day: "sunday"
       time: "01:00"
       timezone: "Europe/Berlin"
+  - package-ecosystem: "github-actions"
+    directory: ".github/actions/setup-jdk-gradle"
+    schedule:
+      interval: "daily"
+      time: "01:00"
+      timezone: "Europe/Berlin"

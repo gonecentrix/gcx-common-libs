@@ -5,6 +5,8 @@ on:
     branches-ignore:
       - main
       - dependabot/**
+    paths-ignore:
+      - ".github/**"
 
 jobs:
   ci:

@@ -19,6 +19,8 @@ jobs:
     name: Publishing Snapshot
     needs: ci
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.bump-semver.outputs.new_version }}
     steps:
       - uses: actions/checkout@v4
 
@@ -40,6 +42,15 @@ jobs:
           echo "SNAPSHOT_VERSION=${{ steps.bump-semver.outputs.new_version }}-${SUFFIX}" >> "$GITHUB_OUTPUT"
         id: snapshot_version
 
-      - run: ./gradlew publish -Pversion=${{ steps.snapshot_version.outputs.SNAPSHOT_VERSION }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: ./.github/actions/publish
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          version: ${{ steps.snapshot_version.outputs.SNAPSHOT_VERSION }}
+
+  publish_sboms:
+    needs:
+      - publish_snapshot
+    uses: ./.github/workflows/upload-sboms.yaml
+    name: Publish SBOMs for Snapshots of all components
+    with:
+      version: ${{ needs.publish_snapshots.outputs.version }}

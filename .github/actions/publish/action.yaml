@@ -1,0 +1,29 @@
+name: Publish artifacts and SBOMs
+
+description: Uploads artifacts to Maven and the SBOMs to DependencyTrack
+
+inputs:
+  version:
+    description: Version for publication
+    required: true
+  github-token:
+    description: Token for the GitHub actor to publish
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Create SBOMs
+      run: ./gradlew --refresh-dependencies --no-configuration-cache -Pversion=${{inputs.version}} cyclonedxBom
+
+    - name: Publish artifacts to maven
+      run: ./gradlew publish -Pversion=${{inputs.version}}
+      env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+        
+    - name: Upload generated SBOMs to be reused
+      uses: actions/upload-artifact@v4
+      with:
+        name: sbom
+        path: |
+          */*/build/reports/bom.*

@@ -15,6 +15,8 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.calver.outputs.CALVER }}
     permissions:
       contents: write
       packages: write
@@ -38,7 +40,15 @@ jobs:
           commit: ${{ github.sha }}
           tag: ${{ steps.calver.outputs.CALVER }}
 
-      - name: Publish package
-        run: ./gradlew publish -Pversion=${{ steps.calver.outputs.CALVER }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: ./.github/actions/publish
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          version: ${{ steps.calver.outputs.CALVER }}
+
+  publish_sboms:
+    needs:
+      - release
+    uses: ./.github/workflows/upload-sboms.yaml
+    name: Publish SBOMs for Release of all components
+    with:
+      version: ${{ needs.release.outputs.version }}

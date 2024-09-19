@@ -20,3 +20,7 @@ dependencies {
         exclude(module = "mockito-core")
     }
 }
+
+cyclonedx {
+    projectType = "library"
+}

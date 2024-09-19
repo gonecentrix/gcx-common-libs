@@ -6,7 +6,21 @@ plugins {
 
 apply(plugin = "org.cyclonedx.bom")
 
+interface CyclonedxConfig {
+    val projectType: Property<String>
+    val componentName: Property<String>
+    val componentVersion: Property<String>
+}
+
+val extension = project.extensions.create<CyclonedxConfig>("cyclonedx")
+
+extension.projectType.convention("application")
+extension.componentName.convention(project.name)
+extension.componentVersion.convention(project.version.toString())
+
 tasks.cyclonedxBom {
     setIncludeConfigs(listOf("runtimeClasspath", "compileClasspath", "testCompileClasspath"))
-    setProjectType("library")
+    setProjectType(extension.projectType.get())
+    setComponentName(extension.componentName.get())
+    setComponentVersion(extension.componentVersion.get())
 }

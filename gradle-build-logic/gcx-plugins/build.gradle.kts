@@ -9,8 +9,6 @@ plugins {
 
 repositories.gradlePluginPortal()
 
-//apply(plugin = "org.cyclonedx.bom")
-
 dependencies {
     implementation("org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:${properties["kotlinVersion"]}")
     implementation("org.jetbrains.kotlin.plugin.spring:org.jetbrains.kotlin.plugin.spring.gradle.plugin:${properties["kotlinVersion"]}")
@@ -35,4 +33,9 @@ publishing {
             }
         }
     }
+}
+
+tasks.cyclonedxBom {
+    setIncludeConfigs(listOf("runtimeClasspath", "compileClasspath", "testCompileClasspath"))
+    setProjectType("library")
 }

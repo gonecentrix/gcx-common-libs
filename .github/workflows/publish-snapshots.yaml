@@ -54,3 +54,6 @@ jobs:
     name: Publish SBOMs for Snapshots of all components
     with:
       version: ${{ needs.publish_snapshots.outputs.version }}
+    secrets:
+      DEPENDENCYTRACK_API_BASIC_AUTH_PW: ${{ secrets.DEPENDENCYTRACK_API_BASIC_AUTH_PW }}
+      DEPENDENCYTRACK_APIKEY: ${{ secrets.DEPENDENCYTRACK_APIKEY }}

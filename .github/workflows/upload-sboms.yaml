@@ -6,6 +6,11 @@ on:
       version:
         required: true
         type: string
+    secrets:
+      DEPENDENCYTRACK_APIKEY:
+        required: true
+      DEPENDENCYTRACK_API_BASIC_AUTH_PW:
+        required: true
 
 jobs:
   upload-lib-sboms:

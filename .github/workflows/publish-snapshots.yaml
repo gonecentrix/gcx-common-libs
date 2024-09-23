@@ -20,7 +20,7 @@ jobs:
     needs: ci
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.bump-semver.outputs.new_version }}
+      version: ${{ steps.snapshot_version.outputs.SNAPSHOT_VERSION }}
     steps:
       - uses: actions/checkout@v4
 

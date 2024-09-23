@@ -1,5 +1,3 @@
-import groovy.xml.dom.DOMCategory.attributes
-
 plugins {
     id("net.grandcentrix.plugin.spring-boot-base")
 }

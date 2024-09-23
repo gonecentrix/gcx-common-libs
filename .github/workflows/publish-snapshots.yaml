@@ -53,7 +53,7 @@ jobs:
     uses: ./.github/workflows/upload-sboms.yaml
     name: Publish SBOMs for Snapshots of all components
     with:
-      version: ${{ needs.publish_snapshots.outputs.version }}
+      version: ${{ needs.publish_snapshot.outputs.version }}
     secrets:
       DEPENDENCYTRACK_API_BASIC_AUTH_PW: ${{ secrets.DEPENDENCYTRACK_API_BASIC_AUTH_PW }}
       DEPENDENCYTRACK_APIKEY: ${{ secrets.DEPENDENCYTRACK_APIKEY }}

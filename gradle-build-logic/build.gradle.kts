@@ -9,3 +9,9 @@ tasks.register("publish") {
     description = "Publishes all components"
     dependsOn(gradle.includedBuild("gcx-plugins").task(":publish"))
 }
+
+tasks.register("cyclonedxBom") {
+    group = "reporting"
+    description = "Generates SBOMs for all components"
+    dependsOn(gradle.includedBuild("gcx-plugins").task(":cyclonedxBom"))
+}

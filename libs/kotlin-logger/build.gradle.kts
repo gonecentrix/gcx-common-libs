@@ -10,3 +10,7 @@ dependencies {
 
     implementation("net.logstash.logback:logstash-logback-encoder")
 }
+
+cyclonedx {
+    projectType = "library"
+}

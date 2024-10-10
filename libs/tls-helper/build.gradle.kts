@@ -10,3 +10,7 @@ dependencies {
     implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
     implementation("org.bouncycastle:bcpkix-jdk15on:1.70")
 }
+
+cyclonedx {
+    projectType = "library"
+}

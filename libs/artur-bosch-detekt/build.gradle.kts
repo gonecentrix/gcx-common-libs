@@ -8,3 +8,7 @@ plugins {
 dependencies {
     implementation(platform("net.grandcentrix.component:gradle-platform"))
 }
+
+cyclonedx {
+    projectType = "library"
+}

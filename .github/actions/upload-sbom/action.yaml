@@ -1,0 +1,41 @@
+name: Upload BOM
+
+description: Uploads a CycloneDX BOM to DependencyTrack
+
+inputs:
+  bom-path:
+    description: Path to the generated bom.xml
+    required: true
+  dependencytrack-api-key:
+    description: |
+      The API key to use for authenticating against DependencyTrack;
+      this is available as organization secret DEPENDENCYTRACK_APIKEY
+    required: true
+  dependencytrack-api-basic-auth-pw:
+    description: |
+      Password of the api Basic Auth user required for dependencytrack-api.g10x.de
+    required: true
+  project-name:
+    description: "Name of the project in DependencyTrack to associate the SBOM with, defaults to the repository name"
+    required: false
+    default: ${{ github.event.repository.name }}
+  project-version:
+    description: "The version of the generated articact the SBOM belongs to"
+    required: false
+    default: ${{ github.head_ref || github.ref_name }}
+
+runs:
+  using: composite
+  steps:
+    - name: Upload BOM
+      run: |
+        curl --fail-with-body \
+        -X POST https://dependencytrack-api.g10x.de/api/v1/bom \
+        -H "Content-Type: multipart/form-data" \
+        -H "X-Api-Key: ${{ inputs.dependencytrack-api-key }}" \
+        -F "autoCreate=true" \
+        -F "projectName=${{ inputs.project-name }}" \
+        -F "projectVersion=${{ inputs.project-version }}" \
+        -F "bom=@${{ inputs.bom-path }}" \
+        -u "api:${{ inputs.dependencytrack-api-basic-auth-pw}}"
+      shell: bash

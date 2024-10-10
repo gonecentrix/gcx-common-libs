@@ -11,3 +11,7 @@ dependencies {
     testImplementation("net.grandcentrix.component:test-containers")
     testRuntimeOnly("org.postgresql:postgresql")
 }
+
+cyclonedx {
+    projectType = "library"
+}

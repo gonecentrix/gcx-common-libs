@@ -1,0 +1,56 @@
+name: Upload SBOMs
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        required: true
+        type: string
+    secrets:
+      DEPENDENCYTRACK_APIKEY:
+        required: true
+      DEPENDENCYTRACK_API_BASIC_AUTH_PW:
+        required: true
+
+jobs:
+  upload-lib-sboms:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        componentName:
+          - artur-bosch-detekt
+          - base-entity
+          - kotlin-logger
+          - test-containers
+          - tls-helper
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: sbom
+
+      - uses: ./.github/actions/upload-sbom
+        with:
+          bom-path: "libs/${{ matrix.componentName }}/build/reports/bom.json"
+          dependencytrack-api-key: ${{ secrets.DEPENDENCYTRACK_APIKEY }}
+          dependencytrack-api-basic-auth-pw: ${{ secrets.DEPENDENCYTRACK_API_BASIC_AUTH_PW }}
+          project-name: "gcx-common-libs/${{ matrix.componentName }}"
+          project-version: '${{ inputs.version }}'
+
+  upload-plugins-sbom:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: sbom
+
+      - uses: ./.github/actions/upload-sbom
+        with:
+          bom-path: "gradle-build-logic/gcx-plugins/build/reports/bom.json"
+          dependencytrack-api-key: ${{ secrets.DEPENDENCYTRACK_APIKEY }}
+          dependencytrack-api-basic-auth-pw: ${{ secrets.DEPENDENCYTRACK_API_BASIC_AUTH_PW }}
+          project-name: "gcx-common-libs/gcx-plugins"
+          project-version: "${{ inputs.version }}"

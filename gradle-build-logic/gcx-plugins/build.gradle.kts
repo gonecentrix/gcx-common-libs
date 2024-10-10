@@ -3,7 +3,11 @@ group = "net.grandcentrix.plugin"
 plugins {
     `kotlin-dsl`
     `maven-publish`
+
+    id("org.cyclonedx.bom") version "1.10.0"
 }
+
+repositories.gradlePluginPortal()
 
 dependencies {
     implementation("org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:${properties["kotlinVersion"]}")
@@ -15,6 +19,7 @@ dependencies {
     implementation("io.spring.dependency-management:io.spring.dependency-management.gradle.plugin:${properties["springDependencyManagementVersion"]}")
     implementation("com.github.ben-manes.versions:com.github.ben-manes.versions.gradle.plugin:${properties["gradleVersionsVersion"]}")
     implementation("io.gitlab.arturbosch.detekt:io.gitlab.arturbosch.detekt.gradle.plugin:${properties["detektVersion"]}")
+    implementation("org.cyclonedx:cyclonedx-gradle-plugin:${properties["cyclonedxVersion"]}")
 }
 
 publishing {
@@ -28,4 +33,9 @@ publishing {
             }
         }
     }
+}
+
+tasks.cyclonedxBom {
+    setIncludeConfigs(listOf("runtimeClasspath", "compileClasspath", "testCompileClasspath"))
+    setProjectType("library")
 }

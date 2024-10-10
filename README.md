@@ -158,6 +158,23 @@ and `kotlin-base` plugins as transitive dependencies.
     }
     ```
 
+8. Add this projects maven repository to your dependabot config
+    ```yaml
+     version: 2
+     updates:
+     - package-ecosystem: "gradle"
+       directory: "/"
+       target-branch: "main"
+       registries:
+       - gcx-common-libs
+    registries:
+      gcx-common-libs:
+        type: maven-repository
+        url: https://maven.pkg.github.com/GCX-SI/gcx-common-libs
+        username: dependabot
+        password: ${{ secrets.PACKAGES_READ_TOKEN }}
+    ```
+
 ## Contributing to the common libs
 
 If you would like to contribute:

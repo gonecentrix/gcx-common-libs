@@ -2,20 +2,21 @@ version: 2
 updates:
   - package-ecosystem: "gradle"
     directory: "gradle-platform/"
+    directories:
+      - "gradle-platform"
+      - "gradle-build-logic"
+      - "gradle-build-logic/gcx-plugins"
+      - "libs/*"
     target-branch: "main"
     schedule:
       interval: "daily"
       time: "01:00"
       timezone: "Europe/Berlin"
   - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "daily"
-      day: "sunday"
-      time: "01:00"
-      timezone: "Europe/Berlin"
-  - package-ecosystem: "github-actions"
-    directory: ".github/actions/setup-jdk-gradle"
+    target-branch: "main"
+    directories:
+      - ".github/actions/*"
+      - "/"
     schedule:
       interval: "daily"
       time: "01:00"

@@ -17,6 +17,7 @@ val springDoc = "2.2.0"
 val jUnitJupiter = "5.11.2"
 val testContainers = "1.20.2"
 val cyclonedxVersion = "1.10.0"
+val bouncyCastleVersion = "1.78.1"
 
 plugins {
     `java-platform`
@@ -57,6 +58,7 @@ dependencies.constraints {
     api("ch.qos.logback.contrib:logback-jackson:$logbackJson")
     api("net.logstash.logback:logstash-logback-encoder:$logbackEncoder")
     api("org.cyclonedx:cyclonedx-gradle-plugin:$cyclonedxVersion")
+    api("org.bouncycastle:bcpkix-jdk18on:$bouncyCastleVersion")
 
     api("org.testcontainers:testcontainers-bom:$testContainers")
     api("org.testcontainers:junit-jupiter:$testContainers")

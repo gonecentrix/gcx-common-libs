@@ -10,16 +10,18 @@ plugins {
 repositories.gradlePluginPortal()
 
 dependencies {
-    implementation("org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:${properties["kotlinVersion"]}")
-    implementation("org.jetbrains.kotlin.plugin.spring:org.jetbrains.kotlin.plugin.spring.gradle.plugin:${properties["kotlinVersion"]}")
-    implementation("org.jetbrains.kotlin.plugin.jpa:org.jetbrains.kotlin.plugin.jpa.gradle.plugin:${properties["kotlinVersion"]}")
-    implementation("org.springframework.boot:org.springframework.boot.gradle.plugin:${properties["springBootVersion"]}")
-    implementation("org.jlleitschuh.gradle.ktlint:org.jlleitschuh.gradle.ktlint.gradle.plugin:${properties["ktLintVersion"]}")
-    implementation("org.owasp.dependencycheck:org.owasp.dependencycheck.gradle.plugin:${properties["owaspDependencyCheckVersion"]}")
-    implementation("io.spring.dependency-management:io.spring.dependency-management.gradle.plugin:${properties["springDependencyManagementVersion"]}")
-    implementation("com.github.ben-manes.versions:com.github.ben-manes.versions.gradle.plugin:${properties["gradleVersionsVersion"]}")
-    implementation("io.gitlab.arturbosch.detekt:io.gitlab.arturbosch.detekt.gradle.plugin:${properties["detektVersion"]}")
-    implementation("org.cyclonedx:cyclonedx-gradle-plugin:${properties["cyclonedxVersion"]}")
+    implementation(platform("net.grandcentrix.component:gradle-platform"))
+
+    implementation("org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin")
+    implementation("org.jetbrains.kotlin.plugin.spring:org.jetbrains.kotlin.plugin.spring.gradle.plugin")
+    implementation("org.jetbrains.kotlin.plugin.jpa:org.jetbrains.kotlin.plugin.jpa.gradle.plugin")
+    implementation("org.springframework.boot:org.springframework.boot.gradle.plugin")
+    implementation("org.jlleitschuh.gradle.ktlint:org.jlleitschuh.gradle.ktlint.gradle.plugin")
+    implementation("org.owasp.dependencycheck:org.owasp.dependencycheck.gradle.plugin")
+    implementation("io.spring.dependency-management:io.spring.dependency-management.gradle.plugin")
+    implementation("com.github.ben-manes.versions:com.github.ben-manes.versions.gradle.plugin")
+    implementation("io.gitlab.arturbosch.detekt:io.gitlab.arturbosch.detekt.gradle.plugin")
+    implementation("org.cyclonedx:cyclonedx-gradle-plugin")
 }
 
 publishing {

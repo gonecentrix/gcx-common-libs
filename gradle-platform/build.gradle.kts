@@ -1,12 +1,12 @@
 group = "net.grandcentrix.component"
 
-val kotlinVersion = properties["kotlinVersion"]
-val ktLint = properties["ktLintVersion"]
-val springDependencyManagement = properties["springDependencyManagementVersion"]
-val gradleVersions = properties["gradleVersionsVersion"]
-val owaspDependencyCheck = properties["owaspDependencyCheckVersion"]
-val springBoot = properties["springBootVersion"]
-val detekt = properties["detektVersion"]
+val kotlinVersion = "2.0.20"
+val ktLint = "11.3.1"
+val springDependencyManagement = "1.1.3"
+val gradleVersions = "0.49.0"
+val owaspDependencyCheck = "8.4.2"
+val springBoot = "3.2.2"
+val detekt = "1.23.3"
 val logbackJson = "0.1.5"
 val logbackEncoder = "8.0"
 val kotlinLogging = "7.0.0"
@@ -16,6 +16,7 @@ val springMockK = "4.0.2"
 val springDoc = "2.2.0"
 val jUnitJupiter = "5.11.2"
 val testContainers = "1.20.2"
+val cyclonedxVersion = "1.10.0"
 
 plugins {
     `java-platform`
@@ -55,6 +56,7 @@ dependencies.constraints {
     api("ch.qos.logback.contrib:logback-json-classic:$logbackJson")
     api("ch.qos.logback.contrib:logback-jackson:$logbackJson")
     api("net.logstash.logback:logstash-logback-encoder:$logbackEncoder")
+    api("org.cyclonedx:cyclonedx-gradle-plugin:$cyclonedxVersion")
 
     api("org.testcontainers:testcontainers-bom:$testContainers")
     api("org.testcontainers:junit-jupiter:$testContainers")

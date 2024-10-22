@@ -1,11 +1,9 @@
 version: 2
 updates:
   - package-ecosystem: "gradle"
+    open-pull-requests-limit: 20
     directories:
       - "gradle-platform"
-      - "gradle-build-logic"
-      - "gradle-build-logic/gcx-plugins"
-      - "libs/*"
     target-branch: "main"
     schedule:
       interval: "daily"

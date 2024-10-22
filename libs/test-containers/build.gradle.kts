@@ -8,7 +8,6 @@ plugins {
 
 dependencies {
     implementation(platform("net.grandcentrix.component:gradle-platform"))
-    implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 
     implementation("org.testcontainers:junit-jupiter")
     api("org.springframework.boot:spring-boot-testcontainers")

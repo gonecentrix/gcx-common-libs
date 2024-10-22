@@ -7,7 +7,6 @@ plugins {
 
 dependencies {
     implementation(platform("net.grandcentrix.component:gradle-platform"))
-    implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
     implementation("org.bouncycastle:bcpkix-jdk18on")
 }
 

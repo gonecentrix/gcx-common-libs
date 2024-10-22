@@ -35,6 +35,20 @@ publishing {
             }
         }
     }
+
+    publications {
+        create<MavenPublication>("pluginMaven") {
+
+            versionMapping {
+                usage("java-api") {
+                    fromResolutionOf("runtimeClasspath")
+                }
+                usage("java-runtime") {
+                    fromResolutionResult()
+                }
+            }
+        }
+    }
 }
 
 tasks.cyclonedxBom {

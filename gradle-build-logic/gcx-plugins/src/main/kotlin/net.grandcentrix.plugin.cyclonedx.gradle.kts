@@ -23,4 +23,6 @@ tasks.cyclonedxBom {
     setProjectType(extension.projectType.get())
     setComponentName(extension.componentName.get())
     setComponentVersion(extension.componentVersion.get())
+    setOutputFormat("json")
+    setOutputName("bom")
 }

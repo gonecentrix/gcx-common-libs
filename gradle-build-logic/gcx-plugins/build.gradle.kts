@@ -54,4 +54,6 @@ publishing {
 tasks.cyclonedxBom {
     setIncludeConfigs(listOf("runtimeClasspath", "compileClasspath", "testCompileClasspath"))
     setProjectType("library")
+    setOutputFormat("json")
+    setOutputName("bom")
 }

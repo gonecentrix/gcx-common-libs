@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component
  */
 @Component
 class CustomRepositoryContext {
-
     /**
      * Used in integration tests, this function is used keep the CPU busy and raise timeout exceptions,
      * in order to ensure that the lock timeout has been set correctly.
@@ -28,7 +27,10 @@ class CustomRepositoryContext {
      * @param entityManager The entity manager
      * @param timeoutDurationInMs the duration of the timeout in milliseconds
      */
-    fun setLockTimeout(entityManager: EntityManager, timeoutDurationInMs: Long) {
+    fun setLockTimeout(
+        entityManager: EntityManager,
+        timeoutDurationInMs: Long,
+    ) {
         val query: Query = entityManager.createNativeQuery("SET LOCAL LOCK_TIMEOUT = $timeoutDurationInMs")
         query.executeUpdate()
     }

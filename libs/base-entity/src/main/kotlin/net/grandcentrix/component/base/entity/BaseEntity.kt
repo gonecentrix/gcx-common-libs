@@ -16,7 +16,7 @@ import java.util.UUID
 @MappedSuperclass
 abstract class BaseEntity(
     /** only for internal usage, not to be used publicly */
-    @Id var id: UUID = UUID.randomUUID()
+    @Id var id: UUID = UUID.randomUUID(),
 ) {
     @Version
     var version: Long? = null

@@ -21,19 +21,18 @@ import org.testcontainers.containers.PostgreSQLContainer
 @IntegrationTest
 @Import(DatabaseIntegrationTest.DatabaseTestConfiguration::class)
 annotation class DatabaseIntegrationTest {
-
     @Configuration
     @EnableJpaAuditing
     @Profile("test")
     class DatabaseTestConfiguration {
-
         @Bean
         @ServiceConnection
-        fun postgresContainer(postgresVersion: String): PostgreSQLContainer<Nothing> = PostgreSQLContainer<Nothing>(
-            "${PostgreSQLContainer.IMAGE}:$postgresVersion"
-        ).apply {
-            start()
-        }
+        fun postgresContainer(postgresVersion: String): PostgreSQLContainer<Nothing> =
+            PostgreSQLContainer<Nothing>(
+                "${PostgreSQLContainer.IMAGE}:$postgresVersion",
+            ).apply {
+                start()
+            }
 
         @Bean(name = ["postgresVersion"])
         @ConditionalOnMissingBean(name = ["postgresVersion"])

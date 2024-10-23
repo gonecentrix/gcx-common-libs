@@ -8,9 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest(classes = [SSLContextProvider::class])
 class SSLContextProviderTest(
-    @Autowired private val sslContextProvider: SSLContextProvider
+    @Autowired private val sslContextProvider: SSLContextProvider,
 ) {
-
     @Test
     fun `Creating a SSLContext with only a CA certificate succeeds`() {
         val caCertPath = sslContextProvider.getResourcePath("test-files/certs/ca.cert")

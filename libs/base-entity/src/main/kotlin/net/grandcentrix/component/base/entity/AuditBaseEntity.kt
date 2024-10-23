@@ -12,13 +12,10 @@ import java.util.UUID
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
 abstract class AuditBaseEntity(
-
     id: UUID = UUID.randomUUID(),
-
     @CreatedDate
     @Column(updatable = false, nullable = false)
     var createdDate: Instant = Instant.now(),
-
     @LastModifiedDate
-    var updatedDate: Instant = Instant.now()
+    var updatedDate: Instant = Instant.now(),
 ) : BaseEntity(id)

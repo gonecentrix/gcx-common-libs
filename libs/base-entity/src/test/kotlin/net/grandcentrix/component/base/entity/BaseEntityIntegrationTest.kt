@@ -24,12 +24,12 @@ import java.time.Instant
 import java.util.UUID
 
 class BaseEntityIntegrationTest {
-
     @Nested
     @DataJpaIntegrationTest
     @BaseLibraryTest
-    internal inner class BaseEntityTest(@Autowired val repo: ComplexEntityRepository) {
-
+    internal inner class BaseEntityTest(
+        @Autowired val repo: ComplexEntityRepository,
+    ) {
         @Test
         fun `when save is called the persist operation is cascaded`() {
             val composite1 = BaseEntityImpl()
@@ -42,7 +42,7 @@ class BaseEntityIntegrationTest {
 
             assertThat(repo.findByIdOrNull(complexEntity.id)!!.compositeList).containsExactlyInAnyOrder(
                 composite1,
-                composite2
+                composite2,
             )
         }
 
@@ -74,9 +74,8 @@ class BaseEntityIntegrationTest {
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     internal inner class LazyFetchTest(
         @Autowired val repo: LazyFetchedParentRepository,
-        @Autowired val transactionTemplate: TransactionTemplate
+        @Autowired val transactionTemplate: TransactionTemplate,
     ) {
-
         @Test
         fun `Check if entities can be fetched lazy`() {
             val entityId = repo.save(LazyFetchedParent(BaseEntityImpl())).id

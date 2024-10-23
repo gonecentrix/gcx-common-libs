@@ -9,6 +9,8 @@ updates:
       interval: "daily"
       time: "01:00"
       timezone: "Europe/Berlin"
+    registries:
+      - gradle-plugins
   - package-ecosystem: "github-actions"
     target-branch: "main"
     directories:
@@ -18,3 +20,8 @@ updates:
       interval: "daily"
       time: "01:00"
       timezone: "Europe/Berlin"
+
+registries:
+  gradle-plugins:
+    type: maven-repository
+    url: https://plugins.gradle.org/m2/

@@ -69,3 +69,11 @@ tasks.register("cyclonedxBom") {
         dependsOn(gradle.includedBuild(project).task(":cyclonedxBom"))
     }
 }
+
+tasks.register("ktlintFormat") {
+    group = "formatting"
+    description = "Run Kotlin Linter"
+    allLibProjects.filter { projectName -> projectName != "gradle-build-logic" }.forEach { project ->
+        dependsOn(gradle.includedBuild(project).task(":ktlintFormat"))
+    }
+}

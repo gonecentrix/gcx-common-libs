@@ -48,18 +48,22 @@ import kotlin.reflect.KClass
 class RepositoryWithExclusiveLock(
     private val entityManager: EntityManager,
     private val customRepositoryContext: CustomRepositoryContext,
-    private val dataSourceProperties: DataSourceProperties
+    private val dataSourceProperties: DataSourceProperties,
 ) {
     @Suppress("UNCHECKED_CAST")
-    fun <T : BaseEntity> findAndObtainExclusiveLockOnItById(ofClass: KClass<T>, id: UUID): T? {
+    fun <T : BaseEntity> findAndObtainExclusiveLockOnItById(
+        ofClass: KClass<T>,
+        id: UUID,
+    ): T? {
         customRepositoryContext.setLockTimeout(entityManager, dataSourceProperties.lockTimeout.toMillis())
 
-        val query = entityManager.createQuery(
-            "SELECT c FROM " + ofClass.simpleName + " c WHERE c.id = :id"
-        ).apply {
-            setParameter("id", id)
-            lockMode = LockModeType.PESSIMISTIC_WRITE
-        }
+        val query =
+            entityManager.createQuery(
+                "SELECT c FROM " + ofClass.simpleName + " c WHERE c.id = :id",
+            ).apply {
+                setParameter("id", id)
+                lockMode = LockModeType.PESSIMISTIC_WRITE
+            }
 
         val result = query.resultStream.findFirst().orElse(null)
 

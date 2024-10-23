@@ -11,6 +11,6 @@ class LazyFetchedParent(
     @ManyToOne(
         optional = false,
         fetch = FetchType.LAZY,
-        cascade = [CascadeType.PERSIST]
-    ) var lazyFetchedEntity: BaseEntityImpl
+        cascade = [CascadeType.PERSIST],
+    ) var lazyFetchedEntity: BaseEntityImpl,
 ) : BaseEntity()

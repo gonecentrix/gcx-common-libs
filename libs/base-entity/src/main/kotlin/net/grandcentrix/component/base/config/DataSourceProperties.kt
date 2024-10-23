@@ -7,7 +7,6 @@ import java.time.temporal.ChronoUnit
 
 @ConfigurationProperties("grandcentrix.datasource")
 data class DataSourceProperties(
-
     @DurationUnit(ChronoUnit.MILLIS)
-    val lockTimeout: Duration = Duration.ofMillis(3_000)
+    val lockTimeout: Duration = Duration.ofMillis(3_000),
 )

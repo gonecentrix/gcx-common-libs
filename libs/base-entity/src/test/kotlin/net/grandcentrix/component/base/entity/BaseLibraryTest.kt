@@ -18,7 +18,7 @@ open class EmptyContext
 @ComponentScan(basePackageClasses = [RepositoryWithExclusiveLock::class])
 @EnableJpaRepositories(
     considerNestedRepositories = true,
-    basePackageClasses = [ComplexEntityRepository::class]
+    basePackageClasses = [ComplexEntityRepository::class],
 )
 @Import(DataSourceProperties::class)
 @Target(AnnotationTarget.CLASS)

@@ -8,14 +8,12 @@ import org.junit.jupiter.api.Test
 import java.util.UUID
 
 internal class BaseEntityTest {
-
     class BaseEntityImpl(id: UUID = UUID.randomUUID()) : BaseEntity(id)
 
     class AuditBaseEntityImpl(id: UUID = UUID.randomUUID()) : AuditBaseEntity(id)
 
     @Nested
     inner class Equals {
-
         @Test
         fun `Reflexive equivalence`() {
             val entity = BaseEntityImpl()
@@ -63,7 +61,6 @@ internal class BaseEntityTest {
 
     @Nested
     inner class Hashcode {
-
         @Test
         fun `Equal objects have same hashcode`() {
             val id = UUID.randomUUID()

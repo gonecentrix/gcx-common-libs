@@ -15,7 +15,7 @@ val assertK = "0.28.1"
 val springMockK = "4.0.2"
 val springDoc = "2.2.0"
 val jUnitJupiter = "5.11.3"
-val testContainers = "1.20.2"
+val testContainers = "1.20.3"
 val cyclonedxVersion = "1.10.0"
 val bouncyCastleVersion = "1.78.1"
 

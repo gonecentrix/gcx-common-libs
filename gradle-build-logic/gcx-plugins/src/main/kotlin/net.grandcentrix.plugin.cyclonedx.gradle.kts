@@ -19,7 +19,7 @@ extension.componentName.convention(project.name)
 extension.componentVersion.convention(project.version.toString())
 
 tasks.cyclonedxBom {
-    setIncludeConfigs(listOf("runtimeClasspath", "compileClasspath", "testCompileClasspath"))
+    setIncludeConfigs(setOf("runtimeClasspath"))
     setProjectType(extension.projectType.get())
     setComponentName(extension.componentName.get())
     setComponentVersion(extension.componentVersion.get())

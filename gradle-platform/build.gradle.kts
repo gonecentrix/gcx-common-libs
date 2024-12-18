@@ -2,7 +2,7 @@ group = "net.grandcentrix.component"
 
 val kotlinVersion = "2.0.20"
 val ktLint = "12.1.2"
-val springDependencyManagement = "1.1.6"
+val springDependencyManagement = "1.1.7"
 val owaspDependencyCheck = "11.1.1"
 val gradleVersions = "0.51.0"
 val springBoot = "3.4.0"

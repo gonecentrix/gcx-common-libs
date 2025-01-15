@@ -17,7 +17,7 @@ val springDoc = "2.2.0"
 val jUnitJupiter = "5.11.4"
 val testContainers = "1.20.4"
 val cyclonedxVersion = "1.10.0"
-val bouncyCastleVersion = "1.79"
+val bouncyCastleVersion = "1.80"
 
 plugins {
     `java-platform`

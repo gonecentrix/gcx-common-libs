@@ -45,6 +45,7 @@ dependencies.constraints {
     api("org.springframework.boot:spring-boot-testcontainers:${springBoot}")
     api("org.junit.jupiter:junit-jupiter-engine:$jUnitJupiter")
     api("org.junit.jupiter:junit-jupiter-api:$jUnitJupiter")
+    api("org.junit.jupiter:junit-jupiter:$jUnitJupiter")
     api("com.willowtreeapps.assertk:assertk-jvm:$assertK")
     api("com.ninja-squad:springmockk:$springMockK")
     api("org.springdoc:springdoc-openapi-ui:$springDoc")

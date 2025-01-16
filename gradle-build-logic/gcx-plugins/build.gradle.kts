@@ -30,8 +30,8 @@ publishing {
             name = "GitHubPackages"
             setUrl("https://maven.pkg.github.com/GCX-SI/gcx-common-libs")
             credentials {
-                username = project.findProperty("github.user") as String? ?: System.getenv("GITHUB_ACTOR")
-                password = project.findProperty("github.token") as String? ?: System.getenv("GITHUB_TOKEN")
+                username = providers.gradleProperty("github.user").orNull ?: System.getenv("GITHUB_ACTOR")
+                password = providers.gradleProperty("github.token").orNull ?: System.getenv("GITHUB_TOKEN")
             }
         }
     }

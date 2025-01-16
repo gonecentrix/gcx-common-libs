@@ -67,26 +67,29 @@ dependencies.constraints {
     api("org.testcontainers:testcontainers:$testContainers")
 }
 
+val projectName = project.name
+val projectGroup = project.group.toString()
+
 publishing {
     repositories {
         maven {
             name = "GitHubPackages"
             setUrl("https://maven.pkg.github.com/GCX-SI/gcx-common-libs")
             credentials {
-                username = project.findProperty("github.user") as String? ?: System.getenv("GITHUB_ACTOR")
-                password = project.findProperty("github.token") as String? ?: System.getenv("GITHUB_TOKEN")
+                username = providers.gradleProperty("github.user").orNull ?: System.getenv("GITHUB_ACTOR")
+                password = providers.gradleProperty("github.token").orNull ?: System.getenv("GITHUB_TOKEN")
             }
         }
     }
     publications {
-        create<MavenPublication>(project.name) {
+        create<MavenPublication>(projectName) {
 
             // Skips loading java components from gradle-platform, as it does not contain any
-            if (!project.name.contains("gradle-platform"))
+            if (!projectName.contains("gradle-platform"))
                 from(components["java"])
 
-            groupId = project.group.toString()
-            artifactId = project.name
+            groupId = projectGroup
+            artifactId = projectName
 
             versionMapping {
                 usage("java-api") {

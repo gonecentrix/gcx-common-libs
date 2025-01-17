@@ -7,6 +7,8 @@ plugins {
 
 dependencies {
     implementation(platform("net.grandcentrix.component:gradle-platform"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 cyclonedx {

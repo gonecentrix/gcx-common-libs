@@ -41,6 +41,7 @@ jobs:
           generateReleaseNotes: true
           commit: ${{ github.sha }}
           tag: ${{ steps.calver.outputs.CALVER }}
+          allowUpdates: true
 
       - uses: ./.github/actions/publish
         with:

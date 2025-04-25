@@ -129,13 +129,12 @@ and `kotlin-base` plugins as transitive dependencies.
     github.user=<your github.com username for grandcentrix>
     github.token=<the token as copied>
     ```
-5. Go back to Github and enable SSO for GCX-SI (by clicking “Authorize” next to GCX-SI and follow the instructions)
-6. Add the package repository:
+5. Add the package repository:
     ```kotlin
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/GCX-SI/gcx-common-libs")
+            url = uri("https://maven.pkg.github.com/gonecentrix/gcx-common-libs")
             credentials {
                 username = project.findProperty("github.user") as String? ?: System.getenv("GITHUB_USER")
                 password = project.findProperty("github.token") as String? ?: System.getenv("GITHUB_TOKEN")
@@ -145,7 +144,7 @@ and `kotlin-base` plugins as transitive dependencies.
     ```
    > Unfortunately this has to be added for each repository. So if you have already added the ACM repo, you still need
    to add the common libs repository.
-7. Add the desired dependencies and plugins:
+6. Add the desired dependencies and plugins:
     ```kotlin
     plugins {
         id("net.grandcentrix.plugin.spring-boot-app")
@@ -158,7 +157,7 @@ and `kotlin-base` plugins as transitive dependencies.
     }
     ```
 
-8. Add this projects maven repository to your dependabot config
+7. Add this project's maven repository to your dependabot config
     ```yaml
      version: 2
      updates:
@@ -170,7 +169,7 @@ and `kotlin-base` plugins as transitive dependencies.
     registries:
       gcx-common-libs:
         type: maven-repository
-        url: https://maven.pkg.github.com/GCX-SI/gcx-common-libs
+        url: https://maven.pkg.github.com/gonecentrix/gcx-common-libs
         username: dependabot
         password: ${{ secrets.PACKAGES_READ_TOKEN }}
     ```
@@ -194,7 +193,3 @@ specific snapshots.
 
 Actual releases (in the sense of gradle/maven, not SemVer) are built everytime a change is pushed to main.
 These releases are versioned using [CalVer](https://calver.org/).
-
-## Projects adopting the GCX Common Libs
-
-1. [B.E.G. LUXoNET](https://github.com/GCX-SI/beg-luxonet-mono/tree/main/backend)

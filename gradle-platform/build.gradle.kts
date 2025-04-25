@@ -74,7 +74,7 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            setUrl("https://maven.pkg.github.com/GCX-SI/gcx-common-libs")
+            setUrl("https://maven.pkg.github.com/gonecentrix/gcx-common-libs")
             credentials {
                 username = providers.gradleProperty("github.user").orNull ?: System.getenv("GITHUB_ACTOR")
                 password = providers.gradleProperty("github.token").orNull ?: System.getenv("GITHUB_TOKEN")
